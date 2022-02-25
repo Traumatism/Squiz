@@ -34,38 +34,6 @@ class BaseModule(Logger, metaclass=abc.ABCMeta):
         """ Pretty rich print """
         console.print(*args)
 
-    def _execute(self, **kwargs) -> None:
-        """ Execute the module """
-
-        Logger.debug(f"Executing module: {self.name}")
-
-        try:
-            state = self.execute(**kwargs)
-        except Exception as e:
-            return Logger.error(
-                f"Error while executing module {self.name}: {e}"
-            )
-
-        if isinstance(state, self.ExecutionSuccess):
-            Logger.info(f"Successfully executed module {self.name}")
-
-        if isinstance(state, self.ExecutionError):
-            Logger.error(
-                f"Potential Error while executing module {self.name}: "
-                f"{state.message}"
-            )
-
-        if not self.results:
-            return
-
-        s = f'Result(s) for module: {self.name}'
-        console.print(f"\n[bold white]{s}[/]\n{'-' * len(s)}")
-
-        del s
-
-        for row in self.results:
-            console.print(row)
-
     @abc.abstractmethod
     def execute(self, **kwargs) -> typing.Optional[State]:
         """ Execute the module """

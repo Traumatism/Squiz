@@ -1,8 +1,10 @@
+import typing
+
 from rich.console import Console
 
 console = Console()
 
-DEBUG = 0
+DEBUG = 1
 
 
 class Logger:
@@ -53,3 +55,15 @@ class Logger:
     def fatal(cls, message: str) -> None:
         """ Logs a fatal to the console """
         cls.log(message, "red", "[^]")
+
+    @classmethod
+    def add_debug(cls, func: typing.Callable) -> typing.Callable:
+        """ Add a logger to a function """
+
+        def wrapper(*args, **kwargs) -> None:
+            _args = ''.join(map(str, args))
+            cls.debug(f"Executing {func.__name__} with args: {_args}")
+
+            return func(*args, **kwargs)
+
+        return wrapper

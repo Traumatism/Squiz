@@ -27,6 +27,7 @@ class Row(BaseModel):
     def p1(self):
         return "null" if self.var2 is None else self.var2
 
+
 class Module(BaseModule):
 
     name = "Sample"
