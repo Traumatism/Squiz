@@ -5,7 +5,7 @@ import squiz.types
 from squiz.logger import Logger
 from squiz.load import load_modules
 from squiz.base import BaseType, BaseModule
-from squiz.utils.executor import execute_many
+from squiz.utils.executors import execute_many
 
 
 def get_modules(target: BaseType) -> typing.Iterable[BaseModule]:

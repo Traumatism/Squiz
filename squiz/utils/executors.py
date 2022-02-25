@@ -2,9 +2,10 @@ import typing
 
 from squiz.logger import Logger, console
 from squiz.base import BaseModule, BaseModel
+from squiz.utils.decorators import add_debug
 
 
-@Logger.add_debug
+@add_debug
 def execute_many(
     modules: typing.Iterable[BaseModule], **kwargs
 ) -> typing.Optional[typing.List[BaseModel]]:
@@ -23,7 +24,7 @@ def execute_many(
     return results
 
 
-@Logger.add_debug
+@add_debug
 def module_executor(
     cls: BaseModule, **kwargs
 ) -> typing.Optional[typing.List[BaseModel]]:
