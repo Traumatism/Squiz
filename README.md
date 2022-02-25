@@ -1,6 +1,10 @@
 # Squiz
 ## 🔎  OSINT Framework
 
+## 😼 Run
+
+`py -m squiz -t <any target>`
+
 ## 📝 Documentation
 
 ### Add a new module
