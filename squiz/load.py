@@ -7,7 +7,7 @@ import os
 from squiz.base import BaseModule
 
 
-PY_COMMANDS_PATH = "modules"
+PY_COMMANDS_PATH = "squiz/modules"
 OS_COMMANDS_PATH = [os.path.join(*PY_COMMANDS_PATH.split("."))]
 
 

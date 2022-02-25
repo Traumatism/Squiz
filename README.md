@@ -9,7 +9,7 @@
 
 ### Add a new module
 
-    * Create a new Python file in the `modules/` directory
+    * Create a new Python file in the `squiz/modules/` directory
     * See next code for details
 ```py
 import requests
