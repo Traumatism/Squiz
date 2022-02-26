@@ -62,6 +62,6 @@ def module_executor(
     del s
 
     for row in cls.results:
-        console.print(row)
+        console.print(row, highlight=False)
 
     return cls.results

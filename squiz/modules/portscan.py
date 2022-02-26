@@ -58,6 +58,8 @@ class Module(BaseModule):
         timeout = kwargs.get("connection_timeout", 5)
         threads = kwargs.get("threads", 10)
 
+        original = threading.active_count()
+
         for port in ports:
             while threading.active_count() >= threads:
                 continue
@@ -66,6 +68,9 @@ class Module(BaseModule):
                 target=self.__scan_port,
                 args=(target, port, timeout)
             ).start()
+
+        while threading.active_count() > original:
+            continue
 
         self.results.append(
             PortScanResults(ip=target.value, ports=self.open_ports)

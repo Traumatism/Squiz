@@ -14,7 +14,7 @@ class BaseModel(pydantic.BaseModel):
         max_key_len = max(len(key) for key in self.render_fields.keys())
 
         return "".join(
-            f"{key:<{max_key_len}} : {getattr(self, value)}\n"
+            f"{key:<{max_key_len}} : {getattr(self, value) or 'n/a'}\n"
             for key, value in self.render_fields.items()
             if getattr(self, value) is not None
         )
