@@ -11,10 +11,9 @@ class BaseModel(pydantic.BaseModel):
     def __rich__(self) -> RenderableType:
         """ Render the model as a rich object """
 
-        max_key_len = max(len(key) for key in self.render_fields.keys())
-
         return "".join(
-            f"{key:<{max_key_len}} : {getattr(self, value) or 'n/a'}\n"
+            f"{key:<{max(map(len, self.render_fields.keys()))}}"
+            f" : {getattr(self, value) or 'n/a'}\n"
             for key, value in self.render_fields.items()
             if getattr(self, value) is not None
         )
