@@ -3,8 +3,8 @@ import typing
 from squiz.logger import Logger
 
 
-def add_debug(func: typing.Callable) -> typing.Callable:
-    """ Add a logger to a function """
+def debug(func: typing.Callable) -> typing.Callable:
+    """ Add a debug logger to a function """
 
     def wrapper(*args, **kwargs) -> None:
         _args = ''.join(map(str, args))

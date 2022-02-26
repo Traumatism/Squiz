@@ -1,30 +1,36 @@
 import typing
 
-from squiz.logger import Logger, console
+from rich.status import Status
+
 from squiz.base import BaseModule, BaseModel
-from squiz.utils.decorators import add_debug
+from squiz.logger import Logger, console
+from squiz.utils.decorators import debug
 
 
-@add_debug
-def execute_many(
-    modules: typing.Iterable[BaseModule], **kwargs
+@debug
+def execute_many_modules(
+    modules: typing.Iterable[BaseModule], progress: bool = True, **kwargs
 ) -> typing.Optional[typing.List[BaseModel]]:
     """ Execute many modules """
 
+    class __:
+        def __enter__(self): ...
+        def __exit__(self, *_): ...
+
     results = []
 
-    for module in modules:
-        result = module_executor(module, **kwargs)
+    with Status("Running modules...", console=console) if progress else __():
+        for module in modules:
+            result = module_executor(module, **kwargs)
 
-        if result is None:
-            continue
+            if result is None:
+                continue
 
-        results.extend(result)
+            results.extend(result)
 
     return results
 
 
-@add_debug
 def module_executor(
     cls: BaseModule, **kwargs
 ) -> typing.Optional[typing.List[BaseModel]]:
