@@ -35,9 +35,7 @@ class Module(BaseModule):
     def execute(self, **kwargs):
         target = kwargs["target"]
 
-        response = requests.get(
-            f"https://ipinfo.io/{target}/json"
-        )
+        response = requests.get(f"https://ipinfo.io/{target}/json")
 
         try:
             self.results.append(IPInfo(**response.json()))

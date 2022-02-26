@@ -51,7 +51,6 @@ class Module(BaseModule):
 
     def execute(self, **kwargs):
         target = kwargs["target"]
-
         response = requests.get(f"https://internetdb.shodan.io/{target}")
 
         try:
