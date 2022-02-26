@@ -7,16 +7,16 @@ import os
 from squiz.base import BaseModule
 
 
-PY_COMMANDS_PATH = "squiz/modules"
-OS_COMMANDS_PATH = [os.path.join(*PY_COMMANDS_PATH.split("."))]
+PY_MODULES_PATH = "squiz.modules"
+OS_MODULES_PATH = [os.path.join(*PY_MODULES_PATH.split("."))]
 
 
 def load_modules() -> typing.Generator[typing.Type[BaseModule], None, None]:
     """ Load all modules """
 
-    for _, file_name, _ in pkgutil.iter_modules(OS_COMMANDS_PATH):
+    for _, file_name, _ in pkgutil.iter_modules(OS_MODULES_PATH):
 
-        module = importlib.import_module(f"{PY_COMMANDS_PATH}.{file_name}")
+        module = importlib.import_module(f"{PY_MODULES_PATH}.{file_name}")
 
         for _, cls in inspect.getmembers(module):
             if (

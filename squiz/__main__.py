@@ -1,6 +1,6 @@
 import typing
-import argparse
 import squiz.types
+import rich_click as click
 
 from squiz.logger import Logger
 from squiz.load import load_modules
@@ -31,35 +31,27 @@ def parse_target(target: str) -> typing.Optional[BaseType]:
     return Logger.fatal(f"Ambiguous target: {target}")
 
 
-if __name__ == "__main__":
+@click.group()
+def cli(): ...
+
+
+@cli.command()
+@click.argument("target", type=str)
+def main(target):
     Logger.print_banner()
 
-    parser = argparse.ArgumentParser(
-        description="Squiz - a doxing tool made in Python"
-    )
+    target = parse_target(target)
 
-    parser.add_argument(
-        "-t", "--target",
-        help="Target (username/email/uuid)",
-        required=True,
-        type=str
-    )
-
-    args = parser.parse_args()
-
-    target = parse_target(args.target)
-
-    if target is None:
-        exit(0)
-
-    Logger.info(f"Target: {target.value} ({target.__class__.__name__})")
+    if not target:
+        return
 
     modules = get_modules(target)
 
-    Logger.success("Loaded modules !")
-
-    Logger.info("Running modules...")
+    if not modules:
+        return
 
     execute_many(modules, **{"target": target})
 
-    Logger.success("Done !")
+
+if __name__ == "__main__":
+    main()
