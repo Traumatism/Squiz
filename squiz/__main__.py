@@ -7,6 +7,8 @@ from squiz.load import load_modules
 from squiz.base import BaseType, BaseModule
 from squiz.utils.executors import execute_many
 
+click.rich_click.USE_RICH_MARKUP = True
+
 
 def get_modules(target: BaseType) -> typing.Iterable[BaseModule]:
     """ Returns a list of modules that can be executed """
@@ -36,7 +38,7 @@ def cli(): ...
 
 
 @cli.command()
-@click.argument("target", type=str)
+@click.argument("target", required=True)
 def main(target):
     Logger.print_banner()
 
