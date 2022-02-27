@@ -33,18 +33,12 @@ def parse_target(target: str) -> Optional[BaseType]:
     return Logger.fatal(f"Ambiguous target: {target}")
 
 
-@click.command("update")
-def update():
-    import os
-    os.system("git fetch")
-    os.system("git pull")
-
-
 @click.command()
 @click.option(
     "-h", "--help",
     is_flag=True,
-    help="Show help message and exit"
+    help="Show help message and exit",
+    default=True
 )
 @click.argument("target", required=False)
 def run(help: Optional[bool] = False, target: Optional[str] = None) -> None:
