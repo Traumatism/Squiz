@@ -2,9 +2,9 @@ from abc import abstractmethod, ABCMeta
 
 from typing import Optional, Iterable, Type, List
 
-from squiz.base.type import BaseType
-from squiz.base.model import BaseModel
-from squiz.logger import console, Logger
+from .type import BaseType
+from .model import BaseModel
+from ..logger import console, Logger
 
 
 class BaseModule(Logger, metaclass=ABCMeta):
@@ -37,6 +37,4 @@ class BaseModule(Logger, metaclass=ABCMeta):
     @abstractmethod
     def execute(self, **kwargs) -> Optional[State]:
         """ Execute the module """
-        raise NotImplementedError(
-            f"execute() not implemented for module: {self.name}"
-        )
+        raise NotImplementedError("execute() not implemented")

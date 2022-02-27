@@ -1,6 +1,6 @@
 import re
 
-from squiz.base import BaseType
+from ..base import BaseType
 
 
 class IPAddress(BaseType):

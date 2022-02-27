@@ -1,12 +1,12 @@
 import trio
 import httpx
 
-from holehe.core import get_functions, launch_module, import_submodules
-
 from typing import Optional
 
 from squiz.base import BaseModule, BaseModel
 from squiz.types import Email
+
+from holehe.core import get_functions, launch_module, import_submodules
 
 
 class HoleheOutput(BaseModel):
@@ -49,5 +49,4 @@ class Module(BaseModule):
 
     def execute(self, **kwargs):
         self.target = kwargs["target"]
-
         trio.run(self.run)

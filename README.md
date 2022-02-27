@@ -18,6 +18,6 @@ $ cd squiz
 Target can be:
 * a username
 * an email
-* an IP address
+* an IPv4 address
 * an URL
 * an UUID

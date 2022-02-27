@@ -5,8 +5,8 @@ import os
 
 from typing import Generator
 
-from squiz.base import BaseModule
-from squiz.types import ModuleType
+from .base import BaseModule
+from .types import ModuleType
 
 PY_MODULES_PATH = "squiz.modules"
 OS_MODULES_PATH = [os.path.join(*PY_MODULES_PATH.split("."))]

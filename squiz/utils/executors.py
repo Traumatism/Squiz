@@ -2,12 +2,10 @@ from typing import Iterable, List, Optional
 
 from rich.status import Status
 
-from squiz.base import BaseModule, BaseModel
-from squiz.logger import Logger, console
-from squiz.utils.decorators import debug
+from ..base import BaseModule, BaseModel
+from ..logger import Logger, console
 
 
-@debug
 def execute_many_modules(
     modules: Iterable[BaseModule], progress: bool = True, **kwargs
 ) -> Optional[List[BaseModel]]:
