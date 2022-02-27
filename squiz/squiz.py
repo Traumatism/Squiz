@@ -38,7 +38,6 @@ def parse_target(target: str) -> Optional[BaseType]:
     "-h", "--help",
     is_flag=True,
     help="Show help message and exit",
-    default=True
 )
 @click.argument("target", required=False)
 def run(help: Optional[bool] = False, target: Optional[str] = None) -> None:
