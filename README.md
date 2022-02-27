@@ -1,7 +1,8 @@
 # Squiz
-## 🔎  OSINT Framework (just a little project)
 
-[](assets/screenshot.png)
+## 🔎  OSINT Framework
+
+![](assets/screenshot.png)
 
 ## 👉 Install
 
