@@ -33,6 +33,13 @@ def parse_target(target: str) -> Optional[BaseType]:
     return Logger.fatal(f"Ambiguous target: {target}")
 
 
+@click.command("update")
+def update():
+    import os
+    os.system("git fetch")
+    os.system("git pull")
+
+
 @click.command()
 @click.option(
     "-h", "--help",
