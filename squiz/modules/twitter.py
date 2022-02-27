@@ -8,11 +8,10 @@ URL = (
 )
 
 TOKEN = (
-    # Bearer token
     "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs"
     "%3D"
     "1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA",
-    # Guest token
+
     "1497099626842931201"
 )
 

@@ -1,6 +1,7 @@
 import time
-import typing
 import requests
+
+from typing import Optional
 
 from squiz.types import UUID
 from squiz.base import BaseModule, BaseModel
@@ -8,7 +9,7 @@ from squiz.base import BaseModule, BaseModel
 
 class UUIDToNameHistory(BaseModel):
     name: str
-    changedToAt: typing.Optional[int]
+    changedToAt: Optional[int]
 
     render_fields = {
         "Username": "name",

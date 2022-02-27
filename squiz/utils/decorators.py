@@ -1,9 +1,9 @@
-import typing
+from typing import Callable
 
 from squiz.logger import Logger
 
 
-def debug(func: typing.Callable) -> typing.Callable:
+def debug(func: Callable) -> Callable:
     """ Add a debug logger to a function """
 
     def wrapper(*args, **kwargs) -> None:

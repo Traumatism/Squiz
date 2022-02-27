@@ -1,13 +1,13 @@
-import abc
-import typing
+from abc import abstractmethod, ABCMeta
 
-from .type import BaseType
-from .model import BaseModel
+from typing import Optional, Iterable, Type, List
 
-from ..logger import console, Logger
+from squiz.base.type import BaseType
+from squiz.base.model import BaseModel
+from squiz.logger import console, Logger
 
 
-class BaseModule(Logger, metaclass=abc.ABCMeta):
+class BaseModule(Logger, metaclass=ABCMeta):
     """ Base class for all modules """
 
     class State:
@@ -22,20 +22,20 @@ class BaseModule(Logger, metaclass=abc.ABCMeta):
         """ Successful execution of the module """
 
     name: str
-    target_types: typing.Iterable[typing.Type[BaseType]]
+    target_types: Iterable[Type[BaseType]]
 
     def __init__(self) -> None:
         """ Initialize the module """
         super().__init__()
 
-        self.results: typing.List[BaseModel] = []
+        self.results: List[BaseModel] = []
 
     def print(self, *args) -> None:
         """ Pretty rich print """
         console.print(*args)
 
-    @abc.abstractmethod
-    def execute(self, **kwargs) -> typing.Optional[State]:
+    @abstractmethod
+    def execute(self, **kwargs) -> Optional[State]:
         """ Execute the module """
         raise NotImplementedError(
             f"execute() not implemented for module: {self.name}"

@@ -1,9 +1,8 @@
-import abc
-
+from abc import ABCMeta, abstractclassmethod
 from rich.console import RenderableType
 
 
-class BaseType(metaclass=abc.ABCMeta):
+class BaseType(metaclass=ABCMeta):
     """ Base class for all types """
 
     def __init__(self, value) -> None:
@@ -14,7 +13,7 @@ class BaseType(metaclass=abc.ABCMeta):
         if not self.__class__.validate(value):
             raise ValueError(f"Invalid value: {value}")
 
-    @abc.abstractclassmethod
+    @abstractclassmethod
     def validate(cls) -> None:
         """ Validate the type """
         raise NotImplementedError

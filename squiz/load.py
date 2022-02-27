@@ -1,17 +1,18 @@
 import importlib
-import typing
 import pkgutil
 import inspect
 import os
 
-from squiz.base import BaseModule
+from typing import Generator
 
+from squiz.base import BaseModule
+from squiz.types import ModuleType
 
 PY_MODULES_PATH = "squiz.modules"
 OS_MODULES_PATH = [os.path.join(*PY_MODULES_PATH.split("."))]
 
 
-def load_modules() -> typing.Generator[typing.Type[BaseModule], None, None]:
+def load_modules() -> Generator[ModuleType, None, None]:
     """ Load all modules """
 
     for _, file_name, _ in pkgutil.iter_modules(OS_MODULES_PATH):

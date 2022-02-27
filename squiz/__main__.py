@@ -1,4 +1,3 @@
-import typing
 import squiz.types
 
 import rich_click as click
@@ -6,20 +5,22 @@ import rich_click as click
 from rich.panel import Panel
 from rich.markdown import Markdown
 
+from typing import Optional, Iterable
+
 from squiz.logger import Logger, console
 from squiz.load import load_modules
 from squiz.base import BaseType, BaseModule
 from squiz.utils.executors import execute_many_modules
 
 
-def get_modules(target: BaseType) -> typing.Iterable[BaseModule]:
+def get_modules(target: BaseType) -> Iterable[BaseModule]:
     """ Returns a list of modules that can be executed """
     return map(lambda x: x(), filter(
         lambda x: target.__class__ in x.target_types, load_modules()
     ))
 
 
-def parse_target(target: str) -> typing.Optional[BaseType]:
+def parse_target(target: str) -> Optional[BaseType]:
     """ Parses the target string """
     ts = list(filter(lambda x: x.validate(target), squiz.types.types))
 
@@ -39,10 +40,7 @@ def parse_target(target: str) -> typing.Optional[BaseType]:
     help="Show help message and exit"
 )
 @click.argument("target", required=False)
-def run(
-    help: typing.Optional[bool] = False,
-    target: typing.Optional[str] = None
-) -> None:
+def run(help: Optional[bool] = False, target: Optional[str] = None) -> None:
     Logger.print_banner()
 
     if help is True:

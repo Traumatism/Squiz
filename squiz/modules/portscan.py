@@ -1,6 +1,7 @@
 import threading
-import typing
 import socket
+
+from typing import Union, List
 
 from squiz.types import IPAddress
 from squiz.base import BaseModule, BaseModel
@@ -16,7 +17,7 @@ PORTS = (
 class PortScanResults(BaseModel):
 
     ip: str
-    ports: typing.List[int]
+    ports: List[int]
 
     render_fields = {
         "IP Address": "ip",
@@ -36,10 +37,10 @@ class Module(BaseModule):
     def __init__(self) -> None:
         super().__init__()
 
-        self.open_ports: typing.List[int] = []
+        self.open_ports: List[int] = []
 
     def __scan_port(
-        self, target: IPAddress, port: int, timeout: typing.Union[float, int]
+        self, target: IPAddress, port: int, timeout: Union[float, int]
     ) -> bool:
         """ Scan a port """
 
