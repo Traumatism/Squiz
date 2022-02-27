@@ -16,8 +16,8 @@ $ cd squiz
 `py -m squiz -t <any target>`
 
 Target can be:
-    * a username
-    * an email
-    * an IP address
-    * an URL
-    * an UUID
+* a username
+* an email
+* an IP address
+* an URL
+* an UUID
