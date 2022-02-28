@@ -20,4 +20,6 @@ Target can be:
 * an email
 * an IPv4 address
 * an URL
-* an UUID
+* a UUID
+* a Discord token
+* a Telegram bot token
