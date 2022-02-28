@@ -37,11 +37,21 @@ def parse_target(target: str) -> Optional[BaseType]:
 @click.option(
     "-h", "--help",
     is_flag=True,
-    help="Show help message and exit",
+    help="Show help message and exit"
+)
+@click.option(
+    "-n", "--hide-banner",
+    is_flag=True,
+    help="Hide the banner"
 )
 @click.argument("target", required=False)
-def run(help: Optional[bool] = False, target: Optional[str] = None) -> None:
-    Logger.print_banner()
+def run(
+    help: Optional[bool] = False,
+    hide_banner: Optional[bool] = False,
+    target: Optional[str] = None
+) -> None:
+    if hide_banner is False:
+        Logger.print_banner()
 
     if help is True:
         return console.print(Panel(Markdown(

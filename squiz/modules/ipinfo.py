@@ -1,5 +1,7 @@
 import requests
 
+from typing import Optional
+
 from squiz.types import IPAddress
 from squiz.base import BaseModule, BaseModel
 
@@ -7,7 +9,7 @@ from squiz.base import BaseModule, BaseModel
 class IPInfo(BaseModel):
 
     ip: str
-    hostname: str
+    hostname: Optional[str]
     city: str
     region: str
     country: str
@@ -17,7 +19,6 @@ class IPInfo(BaseModel):
 
     render_fields = {
         "IP Address": "ip",
-        "Hostname": "hostname",
         "City": "city",
         "Region": "region",
         "Country": "country",

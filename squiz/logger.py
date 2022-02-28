@@ -11,11 +11,13 @@ class Logger:
     @staticmethod
     def print_banner() -> None:
         """ Print the ASCII art banner """
-        console.print(r"""[red bold]
+        console.print(r"""[bold blue]
  __   __         __
 /__` /  \ |  | |  /
-.__/ \__X \__/ | /_[/] [cyan]OSINT framework[/]
-                    [green]@toastakerman[/]
+.__/ \__X \__/ | /_ [cyan]framework[/][/]
+
+[green]made with luv by @toastakerman[/]
+
 
         """)
 
