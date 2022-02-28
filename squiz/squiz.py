@@ -7,6 +7,7 @@ from rich.markdown import Markdown
 
 from typing import Optional, Iterable
 
+from . import __version__
 from .types import types
 from .load import load_modules
 from .base import BaseType, BaseModule
@@ -50,17 +51,19 @@ def parse_target(target: str) -> Optional[BaseType]:
     is_flag=True,
     help="Update Squiz"
 )
+@click.option(
+    "-V", "--show-version",
+    is_flag=True,
+    help="Show version and exit"
+)
 @click.argument("target", required=False)
 def run(
     help: Optional[bool] = False,
     update: Optional[bool] = False,
     hide_banner: Optional[bool] = False,
+    show_version: Optional[bool] = False,
     target: Optional[str] = None
 ) -> None:
-    if update is True:
-        os.system("git fetch")
-        os.system("git pull")
-
     if hide_banner is not True:
         Logger.print_banner()
 
@@ -80,10 +83,18 @@ def run(
 
 > * `-n, --hide-banner` - Hide the banner
 
-> * `-v, --version` - Show version and exit
+> * `-V, --version` - Show version and exit
 
             """
         ), width=50, border_style="bright_black"))
+
+    if show_version:
+        Logger.info(f"Squiz 'v{__version__}'")
+        return
+
+    if update is True:
+        os.system("git fetch")
+        os.system("git pull")
 
     if target is None:
         return Logger.fatal("No target specified")
