@@ -1,2 +1,1 @@
 from .squiz import run
-

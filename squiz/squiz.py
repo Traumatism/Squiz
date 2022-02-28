@@ -1,3 +1,4 @@
+import os
 
 import rich_click as click
 
@@ -44,13 +45,23 @@ def parse_target(target: str) -> Optional[BaseType]:
     is_flag=True,
     help="Hide the banner"
 )
+@click.option(
+    "-u", "--update",
+    is_flag=True,
+    help="Update Squiz"
+)
 @click.argument("target", required=False)
 def run(
     help: Optional[bool] = False,
+    update: Optional[bool] = False,
     hide_banner: Optional[bool] = False,
     target: Optional[str] = None
 ) -> None:
-    if hide_banner is False:
+    if update is True:
+        os.system("git fetch")
+        os.system("git pull")
+
+    if hide_banner is not True:
         Logger.print_banner()
 
     if help is True:
@@ -64,6 +75,10 @@ def run(
 
 ### *Options*
 > * `-h, --help` - Show help message and exit
+
+> * `-u, --update` - Update Squiz (git)
+
+> * `-n, --hide-banner` - Hide the banner
 
 > * `-v, --version` - Show version and exit
 
