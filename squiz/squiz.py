@@ -36,32 +36,16 @@ def parse_target(target: str) -> Optional[BaseType]:
 
 
 @click.command()
-@click.option(
-    "-h", "--help",
-    is_flag=True,
-    help="Show help message and exit"
-)
-@click.option(
-    "-n", "--hide-banner",
-    is_flag=True,
-    help="Hide the banner"
-)
-@click.option(
-    "-u", "--update",
-    is_flag=True,
-    help="Update Squiz"
-)
-@click.option(
-    "-V", "--show-version",
-    is_flag=True,
-    help="Show version and exit"
-)
+@click.option("-h", "--help", is_flag=True, help="Show help message and exit")
+@click.option("-n", "--hide-banner", is_flag=True, help="Hide the banner")
+@click.option("-u", "--update", is_flag=True, help="Update Squiz")
+@click.option("-V", "--version", is_flag=True, help="Show version and exit")
 @click.argument("target", required=False)
 def run(
     help: Optional[bool] = False,
     update: Optional[bool] = False,
     hide_banner: Optional[bool] = False,
-    show_version: Optional[bool] = False,
+    version: Optional[bool] = False,
     target: Optional[str] = None
 ) -> None:
     if hide_banner is not True:
@@ -88,7 +72,7 @@ def run(
             """
         ), width=50, border_style="bright_black"))
 
-    if show_version:
+    if version:
         Logger.info(f"Squiz 'v{__version__}'")
         return
 
