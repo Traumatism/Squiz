@@ -3,6 +3,8 @@ from .ipaddress import IPAddress
 from .uuid import UUID
 from .username import Username
 from .url import URL
+from .discord import DiscordToken
+from .telegram import TelegramBotToken
 
 from ..base.type import BaseType
 from ..base.model import BaseModel
@@ -19,5 +21,7 @@ types = [
     IPAddress,
     UUID,
     Username,
-    URL
+    URL,
+    TelegramBotToken,
+    DiscordToken
 ]

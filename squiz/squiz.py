@@ -48,6 +48,7 @@ def run(
     version: Optional[bool] = False,
     target: Optional[str] = None
 ) -> None:
+
     if hide_banner is not True:
         Logger.print_banner()
 
