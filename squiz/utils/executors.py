@@ -51,7 +51,7 @@ def module_executor(
 
     if isinstance(state, BaseModule.State):
         if isinstance(state, BaseModule.ExecutionSuccess):
-            Logger.info(f"Successfully executed module {cls.name}")
+            Logger.success(f"Successfully executed module {cls.name}")
 
         if isinstance(state, BaseModule.ExecutionError):
             Logger.error(
