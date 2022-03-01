@@ -7,27 +7,31 @@ from typing import Generator
 from .base import BaseModule
 from .types import ModuleType
 
-PY_MODULES_PATH = "squiz.modules"
-
 
 def load_modules(
     path: str = os.path.join("squiz", "modules")
 ) -> Generator[ModuleType, None, None]:
     """ Load all modules """
     for i in os.listdir(path):
+
         if i.startswith("__"):
             continue
 
         if i.endswith(".py"):
-            module = i.replace(".py", "")
-            yield from load_module(
-                f"{'.'.join(path.split(os.path.sep))}.{module}"
+
+            module = (
+                f'{".".join(path.split(os.path.sep))}'
+                '.'
+                f'{i.removesuffix(".py")}'
             )
 
+            yield from load_module(module)
+
         else:
-            _path = os.path.join(path, i)
-            if os.path.isdir(_path):
-                yield from load_modules(_path)
+            new_path = os.path.join(path, i)
+
+            if os.path.isdir(new_path):
+                yield from load_modules(new_path)
 
 
 def load_module(module: str) -> Generator[ModuleType, None, None]:
