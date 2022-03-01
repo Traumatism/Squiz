@@ -7,7 +7,6 @@ from squiz.types import Username
 
 
 class GitHubProfile(BaseModel):
-    """ GitHub profile """
     login: str
     avatar_url: str
     html_url: str

@@ -6,7 +6,6 @@ from squiz.types import Username
 
 
 class KeybaseBasics(BaseModel):
-    """ Keybase basics """
     username: str
     ctime: int
 
@@ -22,7 +21,6 @@ class KeybaseBasics(BaseModel):
 
 
 class KeybaseProfile(BaseModel):
-    """ Keybase profile """
     full_name: str
     location: str
     bio: str

@@ -20,13 +20,17 @@ class Module(BaseModule):
     name = "Mojang"
     target_types = (Username, )
 
-    def execute(self, **kwargs) -> None:
+    def execute(self, **kwargs):
         target = kwargs["target"]
 
         response = requests.get(
             f"https://api.mojang.com/users/profiles/minecraft/{target}"
         )
 
-        data = UsernameToUUID(**response.json())
+        try:
+            data = UsernameToUUID(**response.json())
+            self.results.append(data)
+        except Exception:
+            return self.ExecutionError("Invalid response")
 
-        self.results.append(data)
+        return self.ExecutionSuccess()
