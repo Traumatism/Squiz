@@ -26,8 +26,8 @@ class BaseModule(Logger, metaclass=ABCMeta):
 
     def __init__(self) -> None:
         """ Initialize the module """
-        super().__init__()
 
+        super().__init__()
         self.results: List[BaseModel] = []
 
     def print(self, *args) -> None:
