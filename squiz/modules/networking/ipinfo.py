@@ -7,7 +7,6 @@ from squiz.base import BaseModule, BaseModel
 
 
 class IPInfo(BaseModel):
-
     ip: str
     hostname: Optional[str]
     city: str
@@ -41,6 +40,4 @@ class Module(BaseModule):
         try:
             self.results.append(IPInfo(**response.json()))
         except Exception:
-            return self.ExecutionError("Unexpected JSON response")
-
-        return self.ExecutionSuccess()
+            return

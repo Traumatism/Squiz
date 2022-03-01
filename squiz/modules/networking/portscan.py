@@ -77,4 +77,4 @@ class Module(BaseModule):
             PortScanResults(ip=target.value, ports=self.open_ports)
         )
 
-        return self.ExecutionSuccess()
+        return

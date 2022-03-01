@@ -45,6 +45,4 @@ class Module(BaseModule):
         try:
             self.results.append(DiscordInfo(**response.json()))
         except Exception:
-            return self.ExecutionError("Invalid response")
-
-        return self.ExecutionSuccess()
+            return

@@ -56,6 +56,4 @@ class Module(BaseModule):
         try:
             self.results.append(ShodanResponse(**response.json()))
         except Exception:
-            return self.ExecutionError("Unexpected JSON response")
-
-        return self.ExecutionSuccess()
+            return

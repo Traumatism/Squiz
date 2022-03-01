@@ -30,6 +30,4 @@ class Module(BaseModule):
         try:
             self.results.append(TelegramBotInfo(**response.json()["result"]))
         except Exception:
-            return self.ExecutionError("Invalid response")
-
-        return self.ExecutionSuccess()
+            return

@@ -28,9 +28,7 @@ class UUIDToNameHistory(BaseModel):
 
 
 class Module(BaseModule):
-
     name = "Mojang-history"
-    description = "Gather data from Mojang API"
     target_types = (UUID, )
 
     def execute(self, **kwargs):
@@ -45,6 +43,4 @@ class Module(BaseModule):
                 data = UUIDToNameHistory(**row)
                 self.results.append(data)
             except Exception:
-                return self.ExecutionError("Unexpected JSON response")
-
-        return self.ExecutionSuccess()
+                return

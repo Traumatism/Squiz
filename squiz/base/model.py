@@ -11,8 +11,7 @@ class BaseModel(pydantic.BaseModel):
 
     def __rich__(self) -> RenderableType:
         """ Render the model as a rich object """
-
-        return Panel("".join(
+        return Panel.fit("".join(
             f"{key:<{max(map(len, self.render_fields.keys()))}}"
             f" : {getattr(self, value) or 'n/a'}\n"
             for key, value in self.render_fields.items()

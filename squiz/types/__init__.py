@@ -5,6 +5,7 @@ from .username import Username
 from .url import URL
 from .discord import DiscordToken
 from .telegram import TelegramBotToken
+from .port import Port
 
 from ..base.type import BaseType
 from ..base.model import BaseModel
@@ -23,5 +24,6 @@ types = [
     Username,
     URL,
     TelegramBotToken,
-    DiscordToken
+    DiscordToken,
+    Port
 ]

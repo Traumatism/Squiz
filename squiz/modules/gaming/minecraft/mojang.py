@@ -31,6 +31,4 @@ class Module(BaseModule):
             data = UsernameToUUID(**response.json())
             self.results.append(data)
         except Exception:
-            return self.ExecutionError("Invalid response")
-
-        return self.ExecutionSuccess()
+            return

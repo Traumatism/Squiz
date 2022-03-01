@@ -1,9 +1,9 @@
-from typing import Iterable, List, Optional
-
 from rich.status import Status
 
+from typing import Iterable, List, Optional
+
 from ..base import BaseModule, BaseModel
-from ..logger import Logger, console
+from ..logger import console
 
 
 def execute_many_modules(
@@ -43,29 +43,15 @@ def module_executor(
     """ Execute a module """
 
     try:
-        state = cls.execute(**kwargs)
-    except Exception as e:
-        return Logger.error(
-            f"Error while executing module {cls.name}: {e}"
-        )
-
-    if isinstance(state, BaseModule.State):
-        if isinstance(state, BaseModule.ExecutionSuccess):
-            Logger.success(f"Successfully executed module {cls.name}")
-
-        if isinstance(state, BaseModule.ExecutionError):
-            Logger.error(
-                f"Potential Error while executing module {cls.name}: "
-                f"{state.message}"
-            )
+        cls.execute(**kwargs)
+    except Exception:
+        return
 
     if not cls.results:
         return
 
     s = f'Result(s) for module: {cls.name}'
     console.print(f"\n[bold white]{s}[/]\n{'-' * len(s)}")
-
-    del s
 
     for row in cls.results:
         console.print(row, highlight=False)

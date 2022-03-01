@@ -48,10 +48,10 @@ class Module(BaseModule):
             json_data = response.json()["them"]["profile"]
             self.results.append(KeybaseProfile(**json_data))
         except Exception:
-            return
+            pass
 
         try:
             json_data = response.json()["them"]["basics"]
             self.results.append(KeybaseBasics(**json_data))
         except Exception:
-            return
+            pass
