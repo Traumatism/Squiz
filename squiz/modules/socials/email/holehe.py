@@ -38,7 +38,11 @@ class Module(BaseModule):
         async with trio.open_nursery() as nursery:
             for func in functions:
                 nursery.start_soon(
-                    launch_module, func, self.target, client, results
+                    launch_module,
+                    func,
+                    self.target,
+                    client,
+                    results
                 )
 
         await client.aclose()
@@ -49,4 +53,5 @@ class Module(BaseModule):
 
     def execute(self, **kwargs):
         self.target = kwargs["target"]
+
         trio.run(self.run)

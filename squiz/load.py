@@ -1,6 +1,7 @@
-import importlib
-import inspect
 import os
+
+from inspect import getmembers, isclass
+from importlib import import_module
 
 from typing import Generator
 
@@ -12,6 +13,7 @@ def load_modules(
     path: str = os.path.join("squiz", "modules")
 ) -> Generator[ModuleType, None, None]:
     """ Load all modules """
+
     for i in os.listdir(path):
 
         if i.startswith("__"):
@@ -36,14 +38,9 @@ def load_modules(
 
 def load_module(module: str) -> Generator[ModuleType, None, None]:
     """ Load all modules """
+    for _, cls in getmembers(import_module(module)):
+        if isinstance(cls, BaseModule) or cls == BaseModule:
+            continue
 
-    _module = importlib.import_module(module)
-
-    for _, cls in inspect.getmembers(_module):
-        if (
-            inspect.isclass(cls)
-            and cls != BaseModule
-            and not isinstance(cls, BaseModule)
-            and issubclass(cls, BaseModule)
-        ):
+        if isclass(cls) and issubclass(cls, BaseModule):
             yield cls
