@@ -10,7 +10,7 @@ from .types import ModuleType
 
 
 def load_modules(
-    path: str = os.path.join("squiz", "modules")
+    path: str = "modules"
 ) -> Generator[ModuleType, None, None]:
     """ Load all modules """
 
