@@ -99,6 +99,3 @@ def run(
     execute_many_modules(modules, **{"target": target_type})
 
     Logger.success("Done!")
-
-
-run()

@@ -7,12 +7,14 @@ from squiz.types import Port
 
 
 class MinecraftServerStatus(BaseModel):
+    ip: str
     players: str
     version: str
     protocol: int
     description: Any
 
     render_fields = {
+        "IP Address": "ip",
         "Players": "players",
         "Protocol": "protocol",
         "Version": "version",
@@ -39,12 +41,12 @@ class Module(BaseModule):
             status = server.status()
 
             self.results.append(MinecraftServerStatus(
+                ip=f"{host}:{port}",
                 players=f"{status.players.online}/{status.players.max}",
                 version=status.version.name,
                 protocol=status.version.protocol,
                 description=status.description
             ))
 
-        except Exception as e:
-            self.fatal(str(e))
+        except Exception:
             return
