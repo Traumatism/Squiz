@@ -37,9 +37,7 @@ def execute_many_modules(
     return results
 
 
-def module_executor(
-    cls: BaseModule, **kwargs
-) -> Optional[List[BaseModel]]:
+def module_executor(cls: BaseModule, **kwargs) -> Optional[List[BaseModel]]:
     """ Execute a module """
 
     try:

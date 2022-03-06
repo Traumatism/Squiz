@@ -10,5 +10,7 @@ class IPAddress(BaseType):
     def validate(cls, value) -> bool:
         """ Validate the type """
         return re.fullmatch(
-            r"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$", value
+            r"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}"
+            r"([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+            value,
         ) is not None
