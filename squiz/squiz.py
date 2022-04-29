@@ -94,12 +94,12 @@ def run(
     target_type = parse_target(target)
 
     if target_type is None:
-        return
+        return Logger.fatal(f"Invalid target: {target}")
 
     modules = get_modules(target_type)
 
     if not modules:
-        return
+        return Logger.fatal(f"No modules found for target: {target}")
 
     Logger.info("Running modules...")
 
