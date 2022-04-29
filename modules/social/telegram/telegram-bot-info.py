@@ -11,16 +11,12 @@ class TelegramBotInfo(BaseModel):
     first_name: str
     username: Optional[str]
 
-    render_fields = {
-        "ID": "id",
-        "Name": "first_name",
-        "Username": "username"
-    }
+    render_fields = {"ID": "id", "Name": "first_name", "Username": "username"}
 
 
 class Module(BaseModule):
     name = "Telegram infos"
-    target_types = (TelegramBotToken, )
+    target_types = (TelegramBotToken,)
 
     def execute(self, **kwargs):
         target = kwargs["target"]

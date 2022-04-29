@@ -9,9 +9,9 @@ from typing import Optional, Iterable
 
 from squiz import __version__
 from squiz.types import types
-from squiz.utils.loaders import load_modules
-from squiz.base import BaseType, BaseModule
 from squiz.logger import Logger, console
+from squiz.base import BaseType, BaseModule
+from squiz.utils.loaders import load_modules
 from squiz.utils.executors import execute_many_modules
 
 
@@ -103,6 +103,6 @@ def run(
 
     Logger.info("Running modules...")
 
-    execute_many_modules(modules, **{"target": target_type})
+    execute_many_modules(modules, target=target_type)
 
     Logger.success("Done!")

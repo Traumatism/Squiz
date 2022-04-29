@@ -1,24 +1,24 @@
-from abc import abstractmethod, ABCMeta
+from abc import ABC, abstractmethod
 
 from typing import Iterable, Type, List
 
-from .type import BaseType
-from .model import BaseModel
+from squiz.base.type import BaseType
+from squiz.base.model import BaseModel
 
 
-class BaseModule(metaclass=ABCMeta):
-    """ Base class for all modules """
+class BaseModule(ABC):
+    """Base class for all modules"""
 
     name: str
     target_types: Iterable[Type[BaseType]]
 
     def __init__(self) -> None:
-        """ Initialize the module """
+        """Initialize the module"""
         super().__init__()
 
         self.results: List[BaseModel] = []
 
     @abstractmethod
     def execute(self, **kwargs):
-        """ Execute the module """
+        """Execute the module"""
         raise NotImplementedError("execute() not implemented")
