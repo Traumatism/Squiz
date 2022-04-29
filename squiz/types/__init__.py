@@ -25,5 +25,5 @@ types = [
     URL,
     TelegramBotToken,
     DiscordToken,
-    Port
+    Port,
 ]

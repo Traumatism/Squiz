@@ -7,23 +7,24 @@ from rich.markdown import Markdown
 
 from typing import Optional, Iterable
 
-from . import __version__
-from .types import types
-from .load import load_modules
-from .base import BaseType, BaseModule
-from .logger import Logger, console
-from .utils.executors import execute_many_modules
+from squiz import __version__
+from squiz.types import types
+from squiz.load import load_modules
+from squiz.base import BaseType, BaseModule
+from squiz.logger import Logger, console
+from squiz.utils.executors import execute_many_modules
 
 
 def get_modules(target: BaseType) -> Iterable[BaseModule]:
-    """ Returns a list of modules that can be executed """
-    return map(lambda x: x(), filter(
-        lambda x: target.__class__ in x.target_types, load_modules()
-    ))
+    """Returns a list of modules that can be executed"""
+    return map(
+        lambda x: x(),
+        filter(lambda x: target.__class__ in x.target_types, load_modules()),
+    )
 
 
 def parse_target(target: str) -> Optional[BaseType]:
-    """ Parses the target string """
+    """Parses the target string"""
     ts = list(filter(lambda x: x.validate(target), types))
 
     if len(ts) == 1:
@@ -46,15 +47,17 @@ def run(
     update: Optional[bool] = False,
     hide_banner: Optional[bool] = False,
     version: Optional[bool] = False,
-    target: Optional[str] = None
+    target: Optional[str] = None,
 ) -> None:
 
     if hide_banner is not True:
         Logger.print_banner()
 
     if help is True:
-        return console.print(Panel(Markdown(
-            """
+        return console.print(
+            Panel(
+                Markdown(
+                    """
 ### *Usage*
 > * `squiz [options] [target]`
 
@@ -71,7 +74,11 @@ def run(
 > * `-V, --version` - Show version and exit
 
             """
-        ), width=50, border_style="bright_black"))
+                ),
+                width=50,
+                border_style="bright_black",
+            )
+        )
 
     if version:
         Logger.info(f"Squiz 'v{__version__}'")

@@ -20,7 +20,7 @@ class ShodanResponse(BaseModel):
         "Tags": "tags_str",
         "Hostnames": "hostnames_str",
         "CPEs": "cpes_str",
-        "Vulnerabilities": "vulns_str"
+        "Vulnerabilities": "vulns_str",
     }
 
     @property
@@ -47,7 +47,7 @@ class ShodanResponse(BaseModel):
 class Module(BaseModule):
 
     name = "Shodan"
-    target_types = (IPAddress, )
+    target_types = (IPAddress,)
 
     def execute(self, **kwargs):
         target = kwargs["target"]

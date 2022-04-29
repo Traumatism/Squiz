@@ -1,4 +1,4 @@
-from .squiz import run
+from squiz.squiz import run
 
 
 if __name__ == "__main__":
