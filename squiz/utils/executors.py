@@ -15,6 +15,7 @@ def execute_many_modules(
     results = []
 
     if progress:
+
         with Status(MSG % {"module": ""}, console=console) as status:
 
             for module in modules:
@@ -52,7 +53,7 @@ def module_executor(cls: BaseModule, **kwargs) -> Optional[List[BaseModel]]:
     if not cls.results:
         return None
 
-    s = f'Result(s) for module: {cls.name}'
+    s = f"Result(s) for module: {cls.name}"
     console.print(f"\n[bold white]{s}[/]\n{'-' * len(s)}")
 
     for row in cls.results:

@@ -9,7 +9,7 @@ from typing import Optional, Iterable
 
 from squiz import __version__
 from squiz.types import types
-from squiz.load import load_modules
+from squiz.utils.loaders import load_modules
 from squiz.base import BaseType, BaseModule
 from squiz.logger import Logger, console
 from squiz.utils.executors import execute_many_modules
@@ -17,7 +17,7 @@ from squiz.utils.executors import execute_many_modules
 
 def get_modules(target: BaseType) -> Iterable[BaseModule]:
     """Returns a list of modules that can be executed"""
-    return map(
+    yield from map(
         lambda x: x(),
         filter(lambda x: target.__class__ in x.target_types, load_modules()),
     )
