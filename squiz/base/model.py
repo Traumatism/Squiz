@@ -3,13 +3,13 @@ import pydantic
 from rich.panel import Panel
 from rich.console import RenderableType
 
-from typing import Dict, Any
+from typing import Dict
 
 
 class BaseModel(pydantic.BaseModel):
     """Base class for all pydantic models, rich support"""
 
-    render_fields: Dict[str, Any] = {}
+    render_fields = {}  # type: Dict[str, str]
 
     def __rich__(self) -> RenderableType:
         """Render the model as a rich object"""
