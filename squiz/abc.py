@@ -2,6 +2,7 @@ import pydantic
 
 from abc import ABC, abstractmethod
 
+from rich.box import HEAVY
 from rich.panel import Panel
 from rich.console import RenderableType
 
@@ -17,12 +18,13 @@ class BaseModel(pydantic.BaseModel):
         """Render the model as a rich object"""
 
         def f() -> Iterable[str]:
+            """Render the model as a string with 'key : value'"""
             max_len = max(map(len, self.render_fields.keys()))
 
             for key, value in self.render_fields.items():
                 value = getattr(self, value)
 
-                if value is None:
+                if not value:
                     continue
 
                 yield (f"{key:<{max_len}} : {value}\n")
@@ -30,6 +32,7 @@ class BaseModel(pydantic.BaseModel):
         return Panel.fit(
             "".join(f()),
             border_style="bright_black",
+            box=HEAVY,
         )
 
 
@@ -50,12 +53,12 @@ class BaseType(ABC):
         raise NotImplementedError
 
     @property
-    def value(self) -> Any:
+    def value(self) -> str:
         """Get the value"""
-        return self.__value
+        return str(self.__value)
 
     def __str__(self) -> str:
-        return str(self.value)
+        return self.value
 
     def __repr__(self) -> str:
         return (

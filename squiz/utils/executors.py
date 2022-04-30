@@ -10,18 +10,16 @@ def execute_many_modules(
     modules: Iterable[BaseModule], progress: bool = True, **kwargs
 ) -> Optional[List[BaseModel]]:
     """Execute many modules"""
-    MSG = "Running modules... %(module)s"
-
     results = []
 
     if progress:
 
-        with Status(MSG % {"module": ""}, console=console) as status:
+        with Status("Running modules...", console=console) as status:
 
             for module in modules:
 
                 if isinstance(status, Status):
-                    status.update(MSG % {"module": f"({module.name})"})
+                    status.update(f"Running modules... ({module.name})")
 
                 result = module_executor(module, **kwargs)
 
@@ -30,6 +28,7 @@ def execute_many_modules(
 
                 results.extend(result)
     else:
+
         for module in modules:
 
             result = module_executor(module, **kwargs)

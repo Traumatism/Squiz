@@ -73,7 +73,7 @@ def run(
 
 > * `-V, --version` - Show version and exit
 
-            """
+                    """
                 ),
                 width=50,
                 border_style="bright_black",

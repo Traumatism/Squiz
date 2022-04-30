@@ -14,10 +14,10 @@ class Logger:
 
         console.print(
             r"""[yellow]
-      __
-    [orange3]<[/]([white]o[/] )___  [green]Squiz framework v0.1.0[/]
-     ( ._> /  [green]made with luv by @toastakerman[/]
-      `---'
+     __
+   [orange3]<[/]([white]o[/] )___  [green]Squiz framework v0.1.0[/]
+    ( ._> /  [green]made with luv by @toastakerman[/]
+     `---'
 
             """
         )
