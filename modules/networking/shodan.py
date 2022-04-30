@@ -1,8 +1,8 @@
-import requests
+import httpx
 import typing
 
 from squiz.types import IPAddress
-from squiz.base import BaseModule, BaseModel
+from squiz.abc import BaseModule, BaseModel
 
 
 class ShodanResponse(BaseModel):
@@ -51,7 +51,7 @@ class Module(BaseModule):
 
     def execute(self, **kwargs):
         target = kwargs["target"]
-        response = requests.get(f"https://internetdb.shodan.io/{target}")
+        response = httpx.get(f"https://internetdb.shodan.io/{target}")
 
         try:
             self.results.append(ShodanResponse(**response.json()))

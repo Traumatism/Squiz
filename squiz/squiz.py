@@ -10,7 +10,7 @@ from typing import Optional, Iterable
 from squiz import __version__
 from squiz.types import types
 from squiz.logger import Logger, console
-from squiz.base import BaseType, BaseModule
+from squiz.abc import BaseType, BaseModule
 from squiz.utils.loaders import load_modules
 from squiz.utils.executors import execute_many_modules
 

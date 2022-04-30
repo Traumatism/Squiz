@@ -3,13 +3,12 @@ import os
 from inspect import getmembers, isclass
 from importlib import import_module
 
-from typing import Iterable
+from typing import Iterable, Type
 
-from squiz.base import BaseModule
-from squiz.types import ModuleType
+from squiz.abc import BaseModule
 
 
-def load_modules(path: str = "modules") -> Iterable[ModuleType]:
+def load_modules(path: str = "modules") -> Iterable[Type[BaseModule]]:
     """Load all modules"""
 
     for i in os.listdir(path):
@@ -34,7 +33,7 @@ def load_modules(path: str = "modules") -> Iterable[ModuleType]:
                 yield from load_modules(new_path)
 
 
-def load_module(module: str) -> Iterable[ModuleType]:
+def load_module(module: str) -> Iterable[Type[BaseModule]]:
     """Load all modules"""
     for _, cls in getmembers(import_module(module)):
         if isinstance(cls, BaseModule) or cls == BaseModule:

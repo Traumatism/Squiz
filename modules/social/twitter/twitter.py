@@ -1,6 +1,6 @@
-import requests
+import httpx
 
-from squiz.base import BaseModel, BaseModule
+from squiz.abc import BaseModel, BaseModule
 from squiz.types import Username
 
 URL = (
@@ -23,7 +23,8 @@ PAYLOAD = (
 
 
 class TwitterLegacy(BaseModel):
-    """ Twitter legacy model """
+    """Twitter legacy model"""
+
     created_at: str
     description: str
     favourites_count: int
@@ -43,7 +44,7 @@ class TwitterLegacy(BaseModel):
         "Followers": "followers_count",
         "Following": "friends_count",
         "Favs": "favourites_count",
-        "Creation date": "created_at"
+        "Creation date": "created_at",
     }
 
 
@@ -70,10 +71,8 @@ class Module(BaseModule):
             "authorization": f"Bearer {TOKEN[0]}",
         }
 
-        response = requests.get(
-            URL,
-            headers=headers,
-            params={"variables": PAYLOAD % target}
+        response = httpx.get(
+            URL, headers=headers, params={"variables": PAYLOAD % target}
         )
 
         try:

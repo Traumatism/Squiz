@@ -1,7 +1,7 @@
-import requests
+import httpx
 
 from squiz.types import UUID, Username
-from squiz.base import BaseModule, BaseModel
+from squiz.abc import BaseModule, BaseModel
 
 
 class UsernameToUUID(BaseModel):
@@ -18,12 +18,12 @@ class UsernameToUUID(BaseModel):
 class Module(BaseModule):
 
     name = "Mojang"
-    target_types = (Username, )
+    target_types = (Username,)
 
     def execute(self, **kwargs):
         target = kwargs["target"]
 
-        response = requests.get(
+        response = httpx.get(
             f"https://api.mojang.com/users/profiles/minecraft/{target}"
         )
 

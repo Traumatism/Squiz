@@ -7,17 +7,7 @@ from .discord import DiscordToken
 from .telegram import TelegramBotToken
 from .port import Port
 
-from ..base.type import BaseType
-from ..base.model import BaseModel
-from ..base.module import BaseModule
-
-from typing import Type
-
-ModuleType = Type[BaseModule]
-ModelType = Type[BaseModel]
-TypeType = Type[BaseType]
-
-types = [
+types = (
     Email,
     IPAddress,
     UUID,
@@ -26,4 +16,4 @@ types = [
     TelegramBotToken,
     DiscordToken,
     Port,
-]
+)

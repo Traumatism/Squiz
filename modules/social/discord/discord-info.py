@@ -1,8 +1,8 @@
-import requests
+import httpx
 
 from typing import Optional
 
-from squiz.base import BaseModel, BaseModule
+from squiz.abc import BaseModel, BaseModule
 from squiz.types import DiscordToken
 
 
@@ -26,20 +26,20 @@ class DiscordInfo(BaseModel):
         "Email": "email",
         "Verified": "verified",
         "MFA": "mfa_enabled",
-        "Locale": "locale"
+        "Locale": "locale",
     }
 
 
 class Module(BaseModule):
     name = "Discord infos"
-    target_types = (DiscordToken, )
+    target_types = (DiscordToken,)
 
     def execute(self, **kwargs):
         target = kwargs["target"]
 
-        response = requests.get(
+        response = httpx.get(
             "https://discordapp.com/api/v6/users/@me",
-            headers={"Authorization": target.value}
+            headers={"Authorization": target.value},
         )
 
         try:

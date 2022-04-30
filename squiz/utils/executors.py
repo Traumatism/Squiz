@@ -2,7 +2,7 @@ from rich.status import Status
 
 from typing import Iterable, List, Optional
 
-from squiz.base import BaseModule, BaseModel
+from squiz.abc import BaseModule, BaseModel
 from squiz.logger import console
 
 

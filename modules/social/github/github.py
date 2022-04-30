@@ -1,8 +1,8 @@
-import requests
+import httpx
 
 from typing import Optional
 
-from squiz.base import BaseModel, BaseModule
+from squiz.abc import BaseModel, BaseModule
 from squiz.types import Username
 
 
@@ -22,12 +22,12 @@ class GitHubProfile(BaseModel):
 
     @property
     def created_at_date(self) -> str:
-        """ Get the date """
+        """Get the date"""
         return self.created_at.split("T")[0]
 
     @property
     def updated_at_date(self) -> str:
-        """ Get the date """
+        """Get the date"""
         return self.updated_at.split("T")[0]
 
     render_fields = {
@@ -41,7 +41,7 @@ class GitHubProfile(BaseModel):
         "Bio": "bio",
         "Twitter": "twitter_username",
         "Created": "created_at_date",
-        "Updated": "updated_at_date"
+        "Updated": "updated_at_date",
     }
 
 
@@ -52,7 +52,7 @@ class Module(BaseModule):
     def execute(self, **kwargs):
         target = kwargs["target"]
 
-        response = requests.get(f"https://api.github.com/users/{target.value}")
+        response = httpx.get(f"https://api.github.com/users/{target.value}")
 
         try:
             data = GitHubProfile(**response.json())

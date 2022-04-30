@@ -1,9 +1,9 @@
-import requests
+import httpx
 
 from typing import Optional
 
 from squiz.types import IPAddress
-from squiz.base import BaseModule, BaseModel
+from squiz.abc import BaseModule, BaseModel
 
 
 class IPInfo(BaseModel):
@@ -23,19 +23,19 @@ class IPInfo(BaseModel):
         "Country": "country",
         "Location": "loc",
         "Organization": "org",
-        "Postal Code": "postal"
+        "Postal Code": "postal",
     }
 
 
 class Module(BaseModule):
 
     name = "IPInfo"
-    target_types = (IPAddress, )
+    target_types = (IPAddress,)
 
     def execute(self, **kwargs):
         target = kwargs["target"]
 
-        response = requests.get(f"https://ipinfo.io/{target}/json")
+        response = httpx.get(f"https://ipinfo.io/{target}/json")
 
         try:
             self.results.append(IPInfo(**response.json()))

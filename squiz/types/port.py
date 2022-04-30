@@ -3,7 +3,8 @@ import re
 from typing import Tuple
 
 from .ipaddress import IPAddress
-from ..base import BaseType
+
+from squiz.abc import BaseType
 
 
 class Port(BaseType):

@@ -2,7 +2,7 @@ from typing import Any
 
 from mcstatus import MinecraftServer
 
-from squiz.base import BaseModule, BaseModel
+from squiz.abc import BaseModule, BaseModel
 from squiz.types import Port
 
 

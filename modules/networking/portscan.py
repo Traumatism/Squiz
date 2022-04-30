@@ -4,13 +4,46 @@ import socket
 from typing import Union, List
 
 from squiz.types import IPAddress
-from squiz.base import BaseModule, BaseModel
+from squiz.abc import BaseModule, BaseModel
 
 PORTS = (
-    21, 22, 23, 25, 53, 80, 110, 111, 135, 139, 143,
-    161, 179, 389, 443, 445, 465, 548, 554, 587, 636,
-    993, 995, 1723, 3306, 3389, 5900, 8000, 8080, 8086,
-    8087, 8443, 8888, 9999, 27017, 49152, 50000
+    21,
+    22,
+    23,
+    25,
+    53,
+    80,
+    110,
+    111,
+    135,
+    139,
+    143,
+    161,
+    179,
+    389,
+    443,
+    445,
+    465,
+    548,
+    554,
+    587,
+    636,
+    993,
+    995,
+    1723,
+    3306,
+    3389,
+    5900,
+    8000,
+    8080,
+    8086,
+    8087,
+    8443,
+    8888,
+    9999,
+    27017,
+    49152,
+    50000,
 )
 
 
@@ -19,10 +52,7 @@ class PortScanResults(BaseModel):
     ip: str
     ports: List[int]
 
-    render_fields = {
-        "IP Address": "ip",
-        "Ports": "ports_str"
-    }
+    render_fields = {"IP Address": "ip", "Ports": "ports_str"}
 
     @property
     def ports_str(self) -> str:
@@ -32,7 +62,7 @@ class PortScanResults(BaseModel):
 class Module(BaseModule):
 
     name = "Port scan"
-    target_types = (IPAddress, )
+    target_types = (IPAddress,)
 
     def __init__(self) -> None:
         super().__init__()
@@ -42,7 +72,7 @@ class Module(BaseModule):
     def __scan_port(
         self, target: IPAddress, port: int, timeout: Union[float, int]
     ) -> bool:
-        """ Scan a port """
+        """Scan a port"""
 
         try:
             socket.create_connection((target.value, port), timeout=timeout)
@@ -66,8 +96,7 @@ class Module(BaseModule):
                 continue
 
             threading.Thread(
-                target=self.__scan_port,
-                args=(target, port, timeout)
+                target=self.__scan_port, args=(target, port, timeout)
             ).start()
 
         while threading.active_count() > original:

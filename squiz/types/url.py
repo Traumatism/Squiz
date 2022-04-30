@@ -1,6 +1,6 @@
 import re
 
-from ..base import BaseType
+from squiz.abc import BaseType
 
 
 class URL(BaseType):

@@ -3,7 +3,7 @@ import httpx
 
 from typing import Optional
 
-from squiz.base import BaseModule, BaseModel
+from squiz.abc import BaseModule, BaseModel
 from squiz.types import Email
 
 from holehe.core import get_functions, launch_module, import_submodules

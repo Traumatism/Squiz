@@ -1,8 +1,8 @@
-import requests
+import httpx
 
 from typing import Optional
 
-from squiz.base import BaseModel, BaseModule
+from squiz.abc import BaseModel, BaseModule
 from squiz.types import TelegramBotToken
 
 
@@ -21,7 +21,7 @@ class Module(BaseModule):
     def execute(self, **kwargs):
         target = kwargs["target"]
 
-        response = requests.get(f"https://api.telegram.org/bot{target}/getMe")
+        response = httpx.get(f"https://api.telegram.org/bot{target}/getMe")
 
         try:
             self.results.append(TelegramBotInfo(**response.json()["result"]))

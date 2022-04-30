@@ -1,6 +1,6 @@
 import re
 
-from squiz.base import BaseType
+from squiz.abc import BaseType
 
 
 class DiscordToken(BaseType):

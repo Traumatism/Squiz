@@ -1,10 +1,10 @@
 import time
-import requests
+import httpx
 
 from typing import Optional
 
 from squiz.types import UUID
-from squiz.base import BaseModule, BaseModel
+from squiz.abc import BaseModule, BaseModel
 
 
 class UUIDToNameHistory(BaseModel):
@@ -32,7 +32,7 @@ class Module(BaseModule):
     def execute(self, **kwargs):
         target = kwargs["target"]
 
-        response = requests.get(
+        response = httpx.get(
             f"https://api.mojang.com/user/profiles/{target}/names"
         )
 
