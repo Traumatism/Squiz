@@ -6,10 +6,7 @@ from rich.box import HEAVY
 from rich.panel import Panel
 from rich.console import RenderableType
 
-from typing import Iterable, Type, List, TypeVar
-
-
-T = TypeVar("T")
+from typing import Iterable, Type, List
 
 
 class BaseModel(pydantic.BaseModel):
