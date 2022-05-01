@@ -7,13 +7,14 @@
 ## 👉 Install
 
 ```bash
-$ git clone https://github.com/traumatism/squiz.git
-$ cd squiz
+git clone https://github.com/traumatism/squiz.git
+cd squiz
+pip install -r requirements.txt
 ```
 
 ## 😼 Run
 
-`py -m squiz -t <any target>`
+`py -m squiz <any target>`
 
 Target can be:
 * a username
@@ -22,4 +23,6 @@ Target can be:
 * an URL
 * a UUID
 * a Discord token
+* a Discord ID
 * a Telegram bot token
+* an IPv4 address with a port

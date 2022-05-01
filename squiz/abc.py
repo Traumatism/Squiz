@@ -51,7 +51,7 @@ class BaseType(ABC, Generic[T]):
             raise ValueError(f"Invalid value: {value}")
 
     @classmethod
-    def validate(cls, *args) -> bool:
+    def validate(cls, value) -> bool:
         """Validate the type"""
         raise NotImplementedError
 

@@ -1,5 +1,7 @@
 import re
 
+from typing import Tuple
+
 from .ipaddress import IPAddress
 
 from squiz.abc import BaseType
@@ -9,7 +11,7 @@ class Port(BaseType):
     """TCP port type"""
 
     @classmethod
-    def validate(cls, value) -> bool:
+    def validate(cls, value) -> bool:  # type: ignore
         """Validate the type (ip:port)"""
         if not isinstance(value, str):
             return False
@@ -32,7 +34,7 @@ class Port(BaseType):
         return True
 
     @property
-    def value(self) -> int:
+    def value(self) -> Tuple[IPAddress, int]:
         """Get the value"""
-        val = super().value
-        return int(val.split(":")[1])
+        host, port = super().value.split(":")
+        return IPAddress(host), int(port)
