@@ -6,7 +6,7 @@ from rich.box import HEAVY
 from rich.panel import Panel
 from rich.console import RenderableType
 
-from typing import Generic, Iterable, Type, List, TypeVar
+from typing import Iterable, Type, List, TypeVar
 
 
 T = TypeVar("T")
@@ -39,10 +39,10 @@ class BaseModel(pydantic.BaseModel):
         )
 
 
-class BaseType(ABC, Generic[T]):
+class BaseType(ABC):
     """Base class for all types"""
 
-    def __init__(self, value: T, raise_exc=True) -> None:
+    def __init__(self, value, raise_exc=True) -> None:
         super().__init__()
 
         self.__value = value
@@ -56,7 +56,7 @@ class BaseType(ABC, Generic[T]):
         raise NotImplementedError
 
     @property
-    def value(self) -> T:
+    def value(self):
         """Get the value"""
         return self.__value
 
