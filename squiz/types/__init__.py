@@ -3,7 +3,8 @@ from .ipaddress import IPAddress
 from .uuid import UUID
 from .username import Username
 from .url import URL
-from .discord import DiscordToken
+from .discord.token import DiscordToken
+from .discord.id import DiscordID
 from .telegram import TelegramBotToken
 from .port import Port
 
@@ -15,5 +16,6 @@ types = (
     URL,
     TelegramBotToken,
     DiscordToken,
+    DiscordID,
     Port,
 )

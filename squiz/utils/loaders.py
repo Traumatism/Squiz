@@ -7,8 +7,10 @@ from typing import Iterable, Type
 
 from squiz.abc import BaseModule
 
+BaseModuleType = Type[BaseModule]
 
-def load_modules(path: str = "modules") -> Iterable[Type[BaseModule]]:
+
+def load_modules(path: str = "modules") -> Iterable[BaseModuleType]:
     """Load all modules"""
 
     for i in os.listdir(path):
@@ -33,9 +35,11 @@ def load_modules(path: str = "modules") -> Iterable[Type[BaseModule]]:
                 yield from load_modules(new_path)
 
 
-def load_module(module: str) -> Iterable[Type[BaseModule]]:
-    """Load all modules"""
+def load_module(module: str) -> Iterable[BaseModuleType]:
+    """Load a module"""
+
     for _, cls in getmembers(import_module(module)):
+
         if isinstance(cls, BaseModule) or cls == BaseModule:
             continue
 

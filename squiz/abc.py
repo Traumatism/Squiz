@@ -6,7 +6,10 @@ from rich.box import HEAVY
 from rich.panel import Panel
 from rich.console import RenderableType
 
-from typing import Iterable, Type, List, Any
+from typing import Generic, Iterable, Type, List, TypeVar
+
+
+T = TypeVar("T")
 
 
 class BaseModel(pydantic.BaseModel):
@@ -36,10 +39,10 @@ class BaseModel(pydantic.BaseModel):
         )
 
 
-class BaseType(ABC):
+class BaseType(ABC, Generic[T]):
     """Base class for all types"""
 
-    def __init__(self, value, raise_exc=True) -> None:
+    def __init__(self, value: T, raise_exc=True) -> None:
         super().__init__()
 
         self.__value = value
@@ -48,17 +51,17 @@ class BaseType(ABC):
             raise ValueError(f"Invalid value: {value}")
 
     @classmethod
-    def validate(cls, value: Any) -> bool:
+    def validate(cls, *args) -> bool:
         """Validate the type"""
         raise NotImplementedError
 
     @property
-    def value(self) -> str:
+    def value(self) -> T:
         """Get the value"""
-        return str(self.__value)
+        return self.__value
 
     def __str__(self) -> str:
-        return self.value
+        return str(self.value)
 
     def __repr__(self) -> str:
         return (

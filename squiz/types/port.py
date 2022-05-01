@@ -1,7 +1,5 @@
 import re
 
-from typing import Tuple
-
 from .ipaddress import IPAddress
 
 from squiz.abc import BaseType
@@ -34,7 +32,7 @@ class Port(BaseType):
         return True
 
     @property
-    def value(self) -> Tuple[IPAddress, int]:
+    def value(self) -> int:
         """Get the value"""
-        host, port = super().value.split(":")
-        return IPAddress(host), int(port)
+        val = super().value
+        return int(val.split(":")[1])
