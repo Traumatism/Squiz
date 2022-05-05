@@ -7,6 +7,7 @@ from .discord.token import DiscordToken
 from .discord.id import DiscordID
 from .telegram import TelegramBotToken
 from .port import Port
+from .domain import Domain
 
 types = (
     Email,
@@ -18,4 +19,5 @@ types = (
     DiscordToken,
     DiscordID,
     Port,
+    Domain,
 )

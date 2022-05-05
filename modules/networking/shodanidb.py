@@ -5,7 +5,7 @@ from squiz.types import IPAddress
 from squiz.abc import BaseModule, BaseModel
 
 
-class ShodanResponse(BaseModel):
+class ShodanIDBResponse(BaseModel):
 
     ip: str
     ports: typing.List[int]
@@ -46,7 +46,7 @@ class ShodanResponse(BaseModel):
 
 class Module(BaseModule):
 
-    name = "Shodan"
+    name = "ShodanIDB"
     target_types = (IPAddress,)
 
     def execute(self, **kwargs):
@@ -54,6 +54,6 @@ class Module(BaseModule):
         response = httpx.get(f"https://internetdb.shodan.io/{target}")
 
         try:
-            self.results.append(ShodanResponse(**response.json()))
+            self.results.append(ShodanIDBResponse(**response.json()))
         except Exception:
             return
