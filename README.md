@@ -17,12 +17,12 @@ pip install -r requirements.txt
 `py -m squiz <any target>`
 
 Target can be:
-    * a username
-    * an email
-    * an IPv4 address
-    * an IPv4 address with a port
-    * an URL
-    * a UUID
-    * a Discord token
-    * a Discord ID
-    * a Telegram bot token
+* a username
+* an email
+* an IPv4 address
+* an IPv4 address with a port
+* an URL
+* a UUID
+* a Discord token
+* a Discord ID
+* a Telegram bot token
