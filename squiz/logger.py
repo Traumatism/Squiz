@@ -4,6 +4,8 @@ from rich.box import HEAVY
 
 from typing import Iterable
 
+from squiz import __version__
+
 console = Console()
 
 DEBUG = 0
@@ -19,11 +21,12 @@ class Logger:
         console.print(
             r"""[yellow]
      __
-   [orange3]<[/]([white]o[/] )___  [green]Squiz framework v0.1.0[/]
+   [orange3]<[/]([white]o[/] )___  [green]Squiz framework v %s[/]
     ( ._> /  [green]made with luv by @toastakerman[/]
      `---'
 
             """
+            % __version__
         )
 
     @classmethod
