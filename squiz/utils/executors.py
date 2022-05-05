@@ -1,4 +1,5 @@
 from rich.status import Status
+from rich.columns import Columns
 
 from typing import Iterable, List, Optional
 
@@ -55,7 +56,6 @@ def module_executor(cls: BaseModule, **kwargs) -> Optional[List[BaseModel]]:
     s = f"Result(s) for module: {cls.name}"
     console.print(f"\n[bold white]{s}[/]\n{'-' * len(s)}")
 
-    for row in cls.results:
-        console.print(row, highlight=False)
+    console.print(Columns(cls.results, expand=True), highlight=False)
 
     return cls.results
