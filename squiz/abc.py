@@ -62,8 +62,7 @@ class BaseType(ABC):
 
     def __repr__(self) -> str:
         return (
-            f"<{self.__class__.__name__} "
-            f"value={self.value} valid={self.validate}>"
+            f"<{self.__class__.__name__} " f"value={self.value} valid={self.validate}>"
         )
 
     def __rich__(self) -> RenderableType:

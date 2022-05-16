@@ -36,16 +36,12 @@ class Module(BaseModule):
 
         async with trio.open_nursery() as nursery:
             for func in functions:
-                nursery.start_soon(
-                    launch_module, func, self.target, client, results
-                )
+                nursery.start_soon(launch_module, func, self.target, client, results)
 
         await client.aclose()
 
         self.results = [
-            HoleheOutput(**result)
-            for result in results
-            if result.get("exists")
+            HoleheOutput(**result) for result in results if result.get("exists")
         ]
 
     def execute(self, **kwargs):

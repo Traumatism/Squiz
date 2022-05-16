@@ -102,8 +102,6 @@ class Module(BaseModule):
         while threading.active_count() > original:
             continue
 
-        self.results.append(
-            PortScanResults(ip=target.value, ports=self.open_ports)
-        )
+        self.results.append(PortScanResults(ip=target.value, ports=self.open_ports))
 
         return

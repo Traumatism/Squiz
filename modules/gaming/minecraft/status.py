@@ -1,3 +1,4 @@
+import contextlib
 from typing import Any
 
 from mcstatus import MinecraftServer
@@ -18,12 +19,12 @@ class MinecraftServerStatus(BaseModel):
         "Players": "players",
         "Protocol": "protocol",
         "Version": "version",
-        "MOTD": "motd"
+        "MOTD": "motd",
     }
 
     @property
     def motd(self) -> str:
-        """ Get the MOTD """
+        """Get the MOTD"""
         return "".join(
             part.split("'")[0] for part in self.description.split("'text': '")
         )
@@ -31,22 +32,21 @@ class MinecraftServerStatus(BaseModel):
 
 class Module(BaseModule):
     name = "Minecraft Server Status"
-    target_types = (Port, )
+    target_types = (Port,)
 
     def execute(self, **kwargs):
         host, port = kwargs["target"].value
 
-        try:
+        with contextlib.suppress():
             server = MinecraftServer.lookup(f"{host}:{port}")
             status = server.status()
 
-            self.results.append(MinecraftServerStatus(
-                ip=f"{host}:{port}",
-                players=f"{status.players.online}/{status.players.max}",
-                version=status.version.name,
-                protocol=status.version.protocol,
-                description=status.description
-            ))
-
-        except Exception:
-            return
+            self.results.append(
+                MinecraftServerStatus(
+                    ip=f"{host}:{port}",
+                    players=f"{status.players.online}/{status.players.max}",
+                    version=status.version.name,
+                    protocol=status.version.protocol,
+                    description=status.description,
+                )
+            )

@@ -25,12 +25,12 @@ def get_modules(target: BaseType) -> Iterable[BaseModule]:
 
 def parse_target(target: str) -> Optional[BaseType]:
     """Parses the target string"""
-    ts = list(filter(lambda x: x.validate(target), types))
+    a = list(filter(lambda x: x.validate(target), types))
 
-    if len(ts) == 1:
-        return ts[0](target)
+    if len(a) == 1:
+        return a[0](value=target)
 
-    if not ts:
+    if not a:
         return Logger.fatal(f"Invalid target: {target}")
 
     return Logger.fatal(f"Ambiguous target: {target}")

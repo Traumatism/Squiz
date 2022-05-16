@@ -21,9 +21,7 @@ def load_modules(path: str = "modules") -> Iterable[BaseModuleType]:
         if i.endswith(".py"):
 
             module = (
-                f'{".".join(path.split(os.path.sep))}'
-                "."
-                f'{i.removesuffix(".py")}'
+                f'{".".join(path.split(os.path.sep))}' "." f'{i.removesuffix(".py")}'
             )
 
             yield from load_module(module)

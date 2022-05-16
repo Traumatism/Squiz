@@ -3,9 +3,7 @@ import httpx
 from squiz.abc import BaseModel, BaseModule
 from squiz.types import Username
 
-URL = (
-    "https://twitter.com/i/api/graphql/7mjxD3-C6BxitPMVQ6w0-Q/UserByScreenName"
-)
+URL = "https://twitter.com/i/api/graphql/7mjxD3-C6BxitPMVQ6w0-Q/UserByScreenName"
 
 TOKEN = (
     "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs"

@@ -19,7 +19,7 @@ class IPInfo(BaseModel):
     render_fields = {
         "IP Address": "ip",
         "City": "city",
-        "Region": "region",
+        "Regioblack n": "region",
         "Country": "country",
         "Location": "loc",
         "Organization": "org",

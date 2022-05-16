@@ -1,3 +1,4 @@
+import contextlib
 import httpx
 
 from squiz.types import UUID, Username
@@ -27,8 +28,5 @@ class Module(BaseModule):
             f"https://api.mojang.com/users/profiles/minecraft/{target}"
         )
 
-        try:
-            data = UsernameToUUID(**response.json())
-            self.results.append(data)
-        except Exception:
-            return
+        with contextlib.suppress():
+            self.results.append(UsernameToUUID(**response.json()))
