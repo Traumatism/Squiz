@@ -2,7 +2,7 @@ import pydantic
 
 from abc import ABC, abstractmethod
 
-from rich.box import HEAVY
+from rich.box import ASCII2
 from rich.panel import Panel
 from rich.console import RenderableType
 
@@ -32,7 +32,7 @@ class BaseModel(pydantic.BaseModel):
         return Panel.fit(
             "".join(f()),
             border_style="bright_black",
-            box=HEAVY,
+            box=ASCII2,
         )
 
 
@@ -59,11 +59,6 @@ class BaseType(ABC):
 
     def __str__(self) -> str:
         return str(self.value)
-
-    def __repr__(self) -> str:
-        return (
-            f"<{self.__class__.__name__} " f"value={self.value} valid={self.validate}>"
-        )
 
     def __rich__(self) -> RenderableType:
         return f"[green]{self.value}[/green]"

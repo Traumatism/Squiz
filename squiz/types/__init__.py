@@ -17,7 +17,7 @@ types = (
     URL,
     TelegramBotToken,
     DiscordToken,
+    Domain,
     DiscordID,
     Port,
-    Domain,
 )

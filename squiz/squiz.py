@@ -33,7 +33,7 @@ def parse_target(target: str) -> Optional[BaseType]:
     if not a:
         return Logger.fatal(f"Invalid target: {target}")
 
-    return Logger.fatal(f"Ambiguous target: {target}")
+    return Logger.fatal(f"Ambiguous target: {target} ({a})")
 
 
 @click.command()
