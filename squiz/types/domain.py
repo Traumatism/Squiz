@@ -1,19 +1,17 @@
-# import re
+import re
 
 from squiz.abc import BaseType
 
 
 class Domain(BaseType):
-    """Domain/Subdomain type"""
+    """Domain name type"""
 
     @classmethod
     def validate(cls, value) -> bool:
         """Validate the type"""
-        return False
-        # match = re.fullmatch(
-        #     r"^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*"
-        #     r"([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$",
-        #     value,
-        # )
 
-        # return match is not None
+        domain_regex = (
+            r"^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$"
+        )
+
+        return re.fullmatch(domain_regex, value) is not None

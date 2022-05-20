@@ -3,10 +3,10 @@ import pydantic
 from abc import ABC, abstractmethod
 
 from rich.box import ASCII2
-from rich.panel import Panel
+from rich.table import Table
 from rich.console import RenderableType
 
-from typing import Iterable, Type, List
+from typing import Iterable, Tuple, Type, List
 
 
 class BaseModel(pydantic.BaseModel):
@@ -17,9 +17,8 @@ class BaseModel(pydantic.BaseModel):
     def __rich__(self) -> RenderableType:
         """Render the model as a rich object"""
 
-        def f() -> Iterable[str]:
+        def f() -> Iterable[Tuple[str, str]]:
             """Render the model as a string with 'key : value'"""
-            max_len = max(map(len, self.render_fields.keys()))
 
             for key, value in self.render_fields.items():
                 value = getattr(self, value)
@@ -27,13 +26,16 @@ class BaseModel(pydantic.BaseModel):
                 if not value:
                     continue
 
-                yield (f"{key:<{max_len}} : {value}\n")
+                yield str(key), str(value)
 
-        return Panel.fit(
-            "".join(f()),
-            border_style="bright_black",
-            box=ASCII2,
+        table = Table(
+            box=ASCII2, show_header=False, border_style="bright_black"
         )
+
+        for k, v in f():
+            table.add_row(k, v)
+
+        return table
 
 
 class BaseType(ABC):

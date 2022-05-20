@@ -9,4 +9,6 @@ class TelegramBotToken(BaseType):
     @classmethod
     def validate(cls, value) -> bool:
         """Validate the type"""
-        return re.fullmatch(r"^[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+$", value) is not None
+        return (
+            re.fullmatch(r"^[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+$", value) is not None
+        )
