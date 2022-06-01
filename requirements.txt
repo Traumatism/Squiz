@@ -13,7 +13,7 @@ dnspython==2.2.1
 h11==0.12.0
 holehe==1.60.3
 httpcore==0.14.7
-httpx==0.22.0
+httpx==0.23.0
 idna==3.3
 mcstatus==9.0.4
 outcome==1.1.0
