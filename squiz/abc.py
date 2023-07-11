@@ -6,18 +6,18 @@ from rich.box import ASCII2
 from rich.table import Table
 from rich.console import RenderableType
 
-from typing import Iterable, Tuple, Type, List
+from typing import Iterable, Type, final
 
 
 class BaseModel(pydantic.BaseModel):
     """Base class for all pydantic models, rich support"""
 
-    render_fields = {}  # type: ignore
+    render_fields = {}
 
     def __rich__(self) -> RenderableType:
         """Render the model as a rich object"""
 
-        def f() -> Iterable[Tuple[str, str]]:
+        def f() -> Iterable[tuple[str, str]]:
             """Render the model as a string with 'key : value'"""
 
             for key, value in self.render_fields.items():
@@ -28,9 +28,7 @@ class BaseModel(pydantic.BaseModel):
 
                 yield str(key), str(value)
 
-        table = Table(
-            box=ASCII2, show_header=False, border_style="bright_black"
-        )
+        table = Table(box=ASCII2, show_header=False, border_style="bright_black")
 
         for k, v in f():
             table.add_row(k, v)
@@ -72,13 +70,13 @@ class BaseModule(ABC):
     name: str
     target_types: Iterable[Type[BaseType]]
 
+    @final
     def __init__(self) -> None:
         """Initialize the module"""
         super().__init__()
 
-        self.results: List[BaseModel] = []
+        self.results: list[BaseModel] = list()
 
     @abstractmethod
     def execute(self, **kwargs):
         """Execute the module"""
-        raise NotImplementedError("execute() not implemented")

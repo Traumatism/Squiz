@@ -14,16 +14,12 @@ def load_modules(path: str = "modules") -> Iterable[BaseModuleType]:
     """Load all modules"""
 
     for i in os.listdir(path):
-
         if i.startswith("__"):
             continue
 
         if i.endswith(".py"):
-
             module = (
-                f'{".".join(path.split(os.path.sep))}'
-                "."
-                f'{i.removesuffix(".py")}'
+                f'{".".join(path.split(os.path.sep))}' "." f'{i.removesuffix(".py")}'
             )
 
             yield from load_module(module)
@@ -39,7 +35,6 @@ def load_module(module: str) -> Iterable[BaseModuleType]:
     """Load a module"""
 
     for _, cls in getmembers(import_module(module)):
-
         if isinstance(cls, BaseModule) or cls == BaseModule:
             continue
 

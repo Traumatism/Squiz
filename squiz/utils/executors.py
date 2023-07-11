@@ -1,7 +1,7 @@
 from rich.status import Status
 from rich.columns import Columns
 
-from typing import Iterable, List, Optional
+from typing import Iterable
 
 from squiz.abc import BaseModule, BaseModel
 from squiz.logger import console
@@ -9,16 +9,13 @@ from squiz.logger import console
 
 def execute_many_modules(
     modules: Iterable[BaseModule], progress: bool = True, **kwargs
-) -> Optional[List[BaseModel]]:
+) -> list[BaseModel] | None:
     """Execute many modules"""
     results = []
 
     if progress:
-
         with Status("Running modules...", console=console) as status:
-
             for module in modules:
-
                 if isinstance(status, Status):
                     status.update(f"Running modules... ({module.name})")
 
@@ -29,9 +26,7 @@ def execute_many_modules(
 
                 results.extend(result)
     else:
-
         for module in modules:
-
             result = module_executor(module, **kwargs)
 
             if result is None:
@@ -42,7 +37,7 @@ def execute_many_modules(
     return results
 
 
-def module_executor(cls: BaseModule, **kwargs) -> Optional[List[BaseModel]]:
+def module_executor(cls: BaseModule, **kwargs) -> list[BaseModel] | None:
     """Execute a module"""
 
     try:
@@ -54,6 +49,7 @@ def module_executor(cls: BaseModule, **kwargs) -> Optional[List[BaseModel]]:
         return None
 
     s = f"Result(s) for module: {cls.name}"
+
     console.print(f"\n[bold white]{s}[/]\n{'-' * len(s)}")
 
     console.print(Columns(cls.results, expand=True), highlight=False)
