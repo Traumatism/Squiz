@@ -3,7 +3,7 @@ import re
 from squiz.abc import BaseType
 
 
-class IPAddress(BaseType):
+class IPAddress(BaseType[str]):
     """IPAddress type"""
 
     @classmethod

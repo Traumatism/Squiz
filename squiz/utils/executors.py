@@ -1,8 +1,11 @@
+import time
+
 from rich.status import Status
 from rich.columns import Columns
 
 from typing import Iterable
 
+from squiz.logger import Logger
 from squiz.abc import BaseModule, BaseModel
 from squiz.logger import console
 
@@ -42,8 +45,8 @@ def module_executor(cls: BaseModule, **kwargs) -> list[BaseModel] | None:
 
     try:
         cls.execute(**kwargs)
-    except Exception:
-        return None
+    except Exception as e:
+        Logger.error(f"Error running module: {cls.name}: {e}")
 
     if not cls.results:
         return None

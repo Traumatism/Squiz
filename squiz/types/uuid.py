@@ -3,12 +3,9 @@ import re
 from squiz.abc import BaseType
 
 
-class UUID(BaseType):
-    """UUID type"""
-
+class Uuid(BaseType):
     @classmethod
     def validate(cls, value) -> bool:
-        """Validate the type"""
         match = re.fullmatch(
             r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
             r"|^[0-9a-f]{32}$",
@@ -19,7 +16,6 @@ class UUID(BaseType):
 
     @property
     def value(self) -> str:
-        """Get the value"""
         val = super().value
 
         return (

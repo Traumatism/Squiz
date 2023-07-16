@@ -1,19 +1,27 @@
+import re
+import contextlib
+
 import pydantic
 
-from abc import ABC, abstractmethod
+from abc import ABCMeta, abstractmethod
 
-from rich.box import ASCII2
 from rich.table import Table
 from rich.console import RenderableType
 
-from typing import Iterable, Type, final
+from typing import Iterable, final, Generic, TypeVar
 
 
 class BaseModel(pydantic.BaseModel):
-    """Base class for all pydantic models, rich support"""
+    """Pydantic on steroids"""
 
-    render_fields = {}
+    render_fields = dict()  # type: ignore
 
+    @final
+    def dump(self) -> dict:
+        """Dump model to JSON"""
+        return {attr: getattr(self, attr) for attr in self.render_fields.values()}
+
+    @final
     def __rich__(self) -> RenderableType:
         """Render the model as a rich object"""
 
@@ -21,14 +29,15 @@ class BaseModel(pydantic.BaseModel):
             """Render the model as a string with 'key : value'"""
 
             for key, value in self.render_fields.items():
-                value = getattr(self, value)
-
-                if not value:
+                if (value := getattr(self, value)) is None:
                     continue
+
+                if isinstance(value, bool):
+                    value = "Yep :3" if value else "Nup >:o"
 
                 yield str(key), str(value)
 
-        table = Table(box=ASCII2, show_header=False, border_style="bright_black")
+        table = Table(show_header=False, border_style="bright_black")
 
         for k, v in f():
             table.add_row(k, v)
@@ -36,47 +45,74 @@ class BaseModel(pydantic.BaseModel):
         return table
 
 
-class BaseType(ABC):
+T = TypeVar("T")
+
+
+class BaseType(Generic[T], metaclass=ABCMeta):
     """Base class for all types"""
 
-    def __init__(self, value, raise_exc=True) -> None:
+    @final
+    def __init__(self, value: T, raise_exc: bool = True) -> None:
         super().__init__()
 
         self.__value = value
 
-        if not self.__class__.validate(value) and raise_exc is True:
+        if not self.__class__.validate(value) and raise_exc:
             raise ValueError(f"Invalid value: {value}")
 
     @classmethod
+    @abstractmethod
     def validate(cls, value) -> bool:
         """Validate the type"""
-        raise NotImplementedError
+        ...
 
     @property
-    def value(self):
+    def value(self) -> T:
         """Get the value"""
         return self.__value
 
+    @final
     def __str__(self) -> str:
         return str(self.value)
 
+    @final
     def __rich__(self) -> RenderableType:
         return f"[green]{self.value}[/green]"
 
+    @staticmethod
+    def from_regex(regex: str):
+        """Create a type that validates the given regular expression"""
 
-class BaseModule(ABC):
+        class Aux(BaseType):
+            """Auxiliary class"""
+
+            @classmethod
+            def validate(cls, value: str):
+                return re.fullmatch(regex, value) is not None
+
+        return Aux
+
+
+class BaseModule(metaclass=ABCMeta):
     """Base class for all modules"""
 
     name: str
-    target_types: Iterable[Type[BaseType]]
+    target_types: Iterable[type[BaseType]]
+
+    active: bool = False
 
     @final
     def __init__(self) -> None:
         """Initialize the module"""
-        super().__init__()
-
+        self.ignore = contextlib.suppress
         self.results: list[BaseModel] = list()
+
+        super().__init__()
 
     @abstractmethod
     def execute(self, **kwargs):
-        """Execute the module"""
+        ...
+
+    @final
+    def __lt__(self, op: BaseModel):
+        self.results.append(op)

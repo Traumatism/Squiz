@@ -17,17 +17,13 @@ def load_modules(path: str = "modules") -> Iterable[BaseModuleType]:
         if i.startswith("__"):
             continue
 
-        if i.endswith(".py"):
-            module = (
+        elif i.endswith(".py"):
+            yield from load_module(
                 f'{".".join(path.split(os.path.sep))}' "." f'{i.removesuffix(".py")}'
             )
 
-            yield from load_module(module)
-
         else:
-            new_path = os.path.join(path, i)
-
-            if os.path.isdir(new_path):
+            if os.path.isdir(new_path := os.path.join(path, i)):
                 yield from load_modules(new_path)
 
 

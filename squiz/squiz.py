@@ -1,6 +1,6 @@
+import json
 import os
-
-import rich_click as click
+import rich_click as click  # type: ignore
 
 from rich.panel import Panel
 from rich.markdown import Markdown
@@ -25,7 +25,7 @@ def get_modules(target: BaseType) -> Iterable[BaseModule]:
 
 def parse_target(target: str) -> Optional[BaseType]:
     """Parses the target string"""
-    a = list(filter(lambda x: x.validate(target), types))
+    a: list[type[BaseType]] = list(filter(lambda x: x.validate(target), types))
 
     if len(a) == 1:
         return a[0](value=target)
@@ -100,8 +100,13 @@ def run(
     if not modules:
         return Logger.fatal(f"No modules found for target: {target}")
 
-    Logger.info("Running modules...")
+    Logger.info(f"Running modules...")
 
-    execute_many_modules(modules, target=target_type)
+    results_lst = [
+        model.dump()
+        for model in execute_many_modules(modules, target=target_type) or []
+    ]
+
+    print(json.dumps(results_lst), file=open(f"results_{target}.json", "w+"))
 
     Logger.success("Done!")

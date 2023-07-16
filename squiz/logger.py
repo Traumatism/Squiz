@@ -15,14 +15,16 @@ class Logger:
         """Print the ASCII art banner"""
 
         console.print(
-            r"""[yellow]
-     __
-   [orange3]<[/]([white]o[/] )___  [green]Squiz framework v %s[/]
-    ( ._> /  [green]made with luv by @toastakerman[/]
-     `---'
-
             """
-            % __version__
+
+        (o)[bright_black],
+ [cyan]~ ~ ~ ~[/] | | [cyan]~ ~ ~ ~ ~[/]
+         | |                [bold red]Squiz Framework[/]
+  .------| |----,
+ (  [yellow]o o o o[/yellow]  __/[white]  *   *[/]     [blue italic]github.com/traumatism[/]
+  '-._______':@ [white]*  *[/]
+[/]
+            """
         )
 
     @classmethod
@@ -38,29 +40,29 @@ class Logger:
     @classmethod
     def error(cls, message: str) -> None:
         """Logs an error to the console"""
-        cls.log(message, "red", "->")
+        cls.log(message, "red", "!")
 
     @classmethod
     def warning(cls, message: str) -> None:
         """Logs a warning to the console"""
-        cls.log(message, "yellow", "->")
+        cls.log(message, "yellow", "^")
 
     @classmethod
     def info(cls, message: str) -> None:
         """Logs an info to the console"""
-        cls.log(message, "blue", "->")
+        cls.log(message, "blue", "~")
 
     @classmethod
     def success(cls, message: str) -> None:
         """Logs a success to the console"""
-        cls.log(message, "green", "->")
+        cls.log(message, "green", "+")
 
     @classmethod
     def debug(cls, message: str) -> None:
         """Logs a debug to the console"""
-        cls.log(message, "cyan", "->") if DEBUG else ...
+        cls.log(message, "cyan", "D") if DEBUG else ...
 
     @classmethod
     def fatal(cls, message: str) -> None:
         """Logs a fatal to the console"""
-        cls.log(message, "red", "->")
+        cls.log(message, "red", "!!!")
