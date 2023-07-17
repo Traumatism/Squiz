@@ -20,7 +20,7 @@ class GithubResponse(BaseModel):
     blog: str
     location: Optional[str] = None
     email: Optional[str] = None
-    hireable: bool
+    hireable: Optional[bool] = None
     bio: Optional[str] = None
     twitter_username: Optional[str] = None
     public_repos: int
