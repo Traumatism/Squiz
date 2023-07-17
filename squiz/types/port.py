@@ -11,10 +11,7 @@ class Port(BaseType):
     @classmethod
     def validate(cls, value) -> bool:
         """Validate the type (ip:port)"""
-        if not isinstance(value, str):
-            return False
-
-        if not value.count(":"):
+        if (not isinstance(value, str)) or (not value.count(":")):
             return False
 
         ip, port = value.split(":")

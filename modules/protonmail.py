@@ -8,7 +8,7 @@ class ProtonMailResponse(BaseModel):
     email: str
     exists: bool
 
-    render_fields = {"Email": "email", "Exists": "exists"}
+    render_fields: dict[str, str] = {"Email": "email", "Exists": "exists"}
 
 
 class Module(BaseModule):

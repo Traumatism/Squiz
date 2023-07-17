@@ -26,7 +26,7 @@ class GithubResponse(BaseModel):
     followers: int
     following: int
 
-    render_fields = {
+    render_fields: dict[str, str] = {
         "Username": "login",
         "ID": "id",
         "PFP": "avatar_url",

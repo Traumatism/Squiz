@@ -8,7 +8,7 @@ class ProtonVPNResponse(BaseModel):
     target: str
     proton: bool
 
-    render_fields = {"IP/Domain": "target", "Proton": "proton"}
+    render_fields: dict[str, str] = {"IP/Domain": "target", "Proton": "proton"}
 
 
 class Module(BaseModule):

@@ -1,5 +1,6 @@
 import httpx
 
+
 from squiz.types import TelegramBotToken
 from squiz.abc import BaseModule, BaseModel
 
@@ -10,7 +11,7 @@ class TelegramResponse(BaseModel):
     first_name: str
     username: str
 
-    render_fields = {
+    render_fields: dict[str, str] = {
         "ID": "id",
         "Bot": "is_bot",
         "Profile name": "first_name",

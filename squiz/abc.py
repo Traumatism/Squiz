@@ -14,7 +14,7 @@ from typing import Iterable, final, Generic, TypeVar, Any
 class BaseModel(pydantic.BaseModel):
     """Pydantic on steroids"""
 
-    render_fields: dict[str, Any] = dict()  # type: ignore
+    render_fields: dict[str, str]
 
     @final
     def dump(self) -> dict:

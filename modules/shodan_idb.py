@@ -12,7 +12,7 @@ class ShodanIDBResponse(BaseModel):
     cpes: list[str]
     vulns: list[str]
 
-    render_fields = {
+    render_fields: dict[str, str] = {
         "IP Address": "ip",
         "Ports": "ports_str",
         "Tags": "tags_str",

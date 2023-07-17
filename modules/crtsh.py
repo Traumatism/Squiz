@@ -10,7 +10,7 @@ class Row(BaseModel):
     issuer_name: str
     common_name: str
 
-    render_fields = {
+    render_fields: dict[str, str] = {
         "Issuer CA ID": "issuer_ca_id",
         "Issuer name": "issuer_name",
         "Common name": "common_name",

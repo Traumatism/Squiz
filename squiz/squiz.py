@@ -6,14 +6,102 @@ import rich_click as click  # type: ignore
 from rich.panel import Panel
 from rich.markdown import Markdown
 
-from typing import Optional, Iterable
+from typing import Optional, Iterable, Type
+
+from rich.status import Status
+
+from typing import Iterable
 
 from squiz import __version__
 from squiz.types import types
 from squiz.logger import Logger, console
-from squiz.abc import BaseType, BaseModule
-from squiz.utils.loaders import load_modules
-from squiz.utils.executors import execute_many_modules
+from squiz.abc import BaseType, BaseModule, BaseModel
+
+from inspect import getmembers, isclass
+from importlib import import_module
+
+
+BaseModuleType = Type[BaseModule]
+
+
+def load_modules(path: str = "modules") -> Iterable[BaseModuleType]:
+    """Load all modules"""
+
+    for i in os.listdir(path):
+        if i.startswith("__"):
+            continue
+
+        elif i.endswith(".py"):
+            yield from load_module(
+                f'{".".join(path.split(os.path.sep))}' "." f'{i.removesuffix(".py")}'
+            )
+
+        else:
+            if os.path.isdir(new_path := os.path.join(path, i)):
+                yield from load_modules(new_path)
+
+
+def load_module(module: str) -> Iterable[BaseModuleType]:
+    """Load a module"""
+
+    for _, module_class in getmembers(import_module(module)):
+        if isinstance(module_class, BaseModule) or module_class == BaseModule:
+            continue
+
+        if isclass(module_class) and issubclass(module_class, BaseModule):
+            yield module_class
+
+
+def execute_many_modules(
+    modules: Iterable[BaseModule], progress: bool = True, **kwargs
+) -> list[BaseModel] | None:
+    """Execute many modules"""
+    results = []
+
+    if progress:
+        with Status("Running modules...", console=console) as status:
+            for module in modules:
+                if isinstance(status, Status):
+                    status.update(f"Running modules... ({module.name})")
+
+                result = module_executor(module, **kwargs)
+
+                if result is None:
+                    continue
+
+                results.extend(result)
+    else:
+        for module in modules:
+            result = module_executor(module, **kwargs)
+
+            if result is None:
+                continue
+
+            results.extend(result)
+
+    return results
+
+
+def module_executor(cls: BaseModule, **kwargs) -> list[BaseModel] | None:
+    """Execute a module"""
+
+    try:
+        cls.execute(**kwargs)
+    except Exception as e:
+        Logger.debug(f"Error running module: {cls.name}: {e}")
+
+    if not (results := cls.results):
+        return None
+
+    for result in results:
+        print()
+
+        table = result.__rich__()
+        table.title = cls.name
+
+        console.print(table)
+
+    return cls.results
 
 
 def get_modules(target: BaseType) -> Iterable[BaseModule]:
@@ -26,15 +114,13 @@ def get_modules(target: BaseType) -> Iterable[BaseModule]:
 
 def parse_target(target: str) -> Optional[BaseType]:
     """Parses the target string"""
-    a: list[type[BaseType]] = list(filter(lambda x: x.validate(target), types))
 
-    if len(a) == 1:
+    if len(a := list(filter(lambda x: x.validate(target), types))) == 1:
         return a[0](value=target)
 
-    if not a:
-        return Logger.fatal(f"Invalid target: {target}")
-
-    return Logger.fatal(f"Ambiguous target: {target} ({a})")
+    return Logger.fatal(
+        f"Ambiguous target: {target} ({a})" if a else f"Invalid target: {target}"
+    )
 
 
 @click.command()
@@ -108,6 +194,6 @@ def run(
         for model in execute_many_modules(modules, target=target_type) or []
     ]
 
-    print(json.dumps(results_lst), file=open(f"results_{target}.json", "w+"))
+    json.dump(results_lst, open(f"results_{target}.json", "w+"))
 
     Logger.success("Done!")

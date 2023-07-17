@@ -16,7 +16,7 @@ class IPInfoResponse(BaseModel):
     postal: str
     timezone: str
 
-    render_fields = {
+    render_fields: dict[str, str] = {
         "IP Address": "ip",
         "Hostname": "hostname",
         "City": "city",
