@@ -1,13 +1,15 @@
 import httpx
 
+from typing import Optional
+
 from squiz.types import IPAddress
 from squiz.abc import BaseModule, BaseModel
 
 
 class IPInfoResponse(BaseModel):
     ip: str
-    hostname: str | None
-    anycast: bool | None
+    anycast: Optional[bool] = None
+    hostname: Optional[str] = None
     city: str
     region: str
     country: str
@@ -19,6 +21,7 @@ class IPInfoResponse(BaseModel):
     render_fields: dict[str, str] = {
         "IP Address": "ip",
         "Hostname": "hostname",
+        "Anycast": "anycast",
         "City": "city",
         "Region": "region",
         "Country": "country",

@@ -4,7 +4,7 @@ from squiz import __version__
 
 console = Console()
 
-DEBUG = 0
+DEBUG = 1
 
 
 class Logger:

@@ -1,5 +1,7 @@
 import httpx
 
+from typing import Optional
+
 from squiz.types import Username
 from squiz.abc import BaseModule, BaseModel
 
@@ -14,13 +16,13 @@ class GithubResponse(BaseModel):
     type: str
     site_admin: bool
     name: str
-    company: str | None
+    company: Optional[str] = None
     blog: str
-    location: str | None
-    email: str | None
+    location: Optional[str] = None
+    email: Optional[str] = None
     hireable: bool
-    bio: str | None
-    twitter_username: str | None
+    bio: Optional[str] = None
+    twitter_username: Optional[str] = None
     public_repos: int
     public_gists: int
     followers: int
