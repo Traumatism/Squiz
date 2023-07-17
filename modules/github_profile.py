@@ -57,5 +57,5 @@ class Module(BaseModule):
     def execute(self, **kwargs):
         with self.ignore():
             self < GithubResponse(
-                **httpx.get(f"https://api.github.com/users/{kwargs['target']}")
+                **httpx.get(f"https://api.github.com/users/{kwargs['target']}").json()
             )
