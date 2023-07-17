@@ -8,6 +8,8 @@ class ProtonMailResponse(BaseModel):
     email: str
     exists: bool
 
+    render_fields = {"Email": "email", "Exists": "exists"}
+
 
 class Module(BaseModule):
     name = "ProtonMail check"
@@ -25,4 +27,4 @@ class Module(BaseModule):
 
         data = response.text
 
-        self < ProtonMailResponse(email=email, exists="info:1:1" in data)
+        self < ProtonMailResponse(email=email.value, exists="info:1:1" in data)

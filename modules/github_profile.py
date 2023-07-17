@@ -49,7 +49,7 @@ class GithubResponse(BaseModel):
 
 
 class Module(BaseModule):
-    name = "Github"
+    name = "Github profile"
     target_types = (Username,)
 
     def execute(self, **kwargs):

@@ -43,7 +43,7 @@ class ShodanIDBResponse(BaseModel):
 
 
 class Module(BaseModule):
-    name = "ShodanIDB"
+    name = "Shodan Internet DB"
     target_types = (IPAddress,)
 
     def execute(self, **kwargs):

@@ -1,5 +1,6 @@
 import json
 import os
+
 import rich_click as click  # type: ignore
 
 from rich.panel import Panel

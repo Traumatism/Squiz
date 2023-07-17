@@ -8,13 +8,13 @@ from abc import ABCMeta, abstractmethod
 from rich.table import Table
 from rich.console import RenderableType
 
-from typing import Iterable, final, Generic, TypeVar
+from typing import Iterable, final, Generic, TypeVar, Any
 
 
 class BaseModel(pydantic.BaseModel):
     """Pydantic on steroids"""
 
-    render_fields = dict()  # type: ignore
+    render_fields: dict[str, Any] = dict()  # type: ignore
 
     @final
     def dump(self) -> dict:
@@ -22,7 +22,7 @@ class BaseModel(pydantic.BaseModel):
         return {attr: getattr(self, attr) for attr in self.render_fields.values()}
 
     @final
-    def __rich__(self) -> RenderableType:
+    def __rich__(self) -> Table:
         """Render the model as a rich object"""
 
         def f() -> Iterable[tuple[str, str]]:
@@ -34,6 +34,7 @@ class BaseModel(pydantic.BaseModel):
 
                 if isinstance(value, bool):
                     value = "Yep :3" if value else "Nup >:o"
+                    key += "?" if not key.endswith("?") else ""
 
                 yield str(key), str(value)
 
@@ -98,7 +99,6 @@ class BaseModule(metaclass=ABCMeta):
 
     name: str
     target_types: Iterable[type[BaseType]]
-
     active: bool = False
 
     @final
@@ -111,6 +111,7 @@ class BaseModule(metaclass=ABCMeta):
 
     @abstractmethod
     def execute(self, **kwargs):
+        """Run the module"""
         ...
 
     @final

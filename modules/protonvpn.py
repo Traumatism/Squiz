@@ -8,7 +8,7 @@ class ProtonVPNResponse(BaseModel):
     target: str
     proton: bool
 
-    render_fields = {"IP/Domain": "target", "Proton?": "proton"}
+    render_fields = {"IP/Domain": "target", "Proton": "proton"}
 
 
 class Module(BaseModule):
@@ -18,6 +18,7 @@ class Module(BaseModule):
     def execute(self, **kwargs):
         response = httpx.get(f"https://api.protonmail.ch/vpn/logicals")
         json_data = response.json()
+
         target = kwargs["target"].value
 
         found = False

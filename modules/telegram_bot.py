@@ -12,14 +12,14 @@ class TelegramResponse(BaseModel):
 
     render_fields = {
         "ID": "id",
-        "Bot?": "is_bot",
+        "Bot": "is_bot",
         "Profile name": "first_name",
         "Username": "username",
     }
 
 
 class Module(BaseModule):
-    name = "TelegramBotData"
+    name = "Telegram Bot Data"
     target_types = (TelegramBotToken,)
 
     def execute(self, **kwargs):

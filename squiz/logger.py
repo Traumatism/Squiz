@@ -19,7 +19,7 @@ class Logger:
 
         (o)[bright_black],
  [cyan]~ ~ ~ ~[/] | | [cyan]~ ~ ~ ~ ~[/]
-         | |                [bold red]Squiz Framework[/]
+         | |                [bold red]Squiz OSINT tool[/]
   .------| |----,
  (  [yellow]o o o o[/yellow]  __/[white]  *   *[/]     [blue italic]github.com/traumatism[/]
   '-._______':@ [white]*  *[/]

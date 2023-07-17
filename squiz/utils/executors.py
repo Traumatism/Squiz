@@ -1,7 +1,5 @@
-import time
-
 from rich.status import Status
-from rich.columns import Columns
+from rich.panel import Panel
 
 from typing import Iterable
 
@@ -46,15 +44,17 @@ def module_executor(cls: BaseModule, **kwargs) -> list[BaseModel] | None:
     try:
         cls.execute(**kwargs)
     except Exception as e:
-        Logger.error(f"Error running module: {cls.name}: {e}")
+        Logger.debug(f"Error running module: {cls.name}: {e}")
 
-    if not cls.results:
+    if not (results := cls.results):
         return None
 
-    s = f"Result(s) for module: {cls.name}"
+    for result in results:
+        print()
 
-    console.print(f"\n[bold white]{s}[/]\n{'-' * len(s)}")
+        table = result.__rich__()
+        table.title = cls.name
 
-    console.print(Columns(cls.results, expand=True), highlight=False)
+        console.print(table)
 
     return cls.results
