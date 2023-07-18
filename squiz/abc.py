@@ -3,7 +3,7 @@ import contextlib
 
 import pydantic
 
-from abc import ABCMeta, abstractmethod, ABC
+from abc import abstractmethod, ABC
 
 from rich.table import Table
 from rich.console import RenderableType
@@ -31,6 +31,9 @@ class BaseModel(pydantic.BaseModel):
             for key, value in self.render_fields.items():
                 if (value := getattr(self, value)) is None:
                     continue
+
+                if isinstance(value, list):
+                    value = ", ".join(value)
 
                 if isinstance(value, bool):
                     value = "Yep :3" if value else "Nup >:o"
@@ -93,7 +96,7 @@ class BaseType(ABC, Generic[T]):
         return Aux
 
 
-class BaseModule(metaclass=ABCMeta):
+class BaseModule(ABC):
     """Base class for all modules"""
 
     name: str

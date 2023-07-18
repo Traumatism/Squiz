@@ -4,6 +4,7 @@ from .port import Port
 
 from ..abc import BaseType
 
+
 Siret = BaseType.from_regex(r"^\d{9}$")
 Domain = BaseType.from_regex(
     r"^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$"
