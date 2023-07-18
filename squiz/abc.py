@@ -3,12 +3,12 @@ import contextlib
 
 import pydantic
 
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, ABC
 
 from rich.table import Table
 from rich.console import RenderableType
 
-from typing import Iterable, final, Generic, TypeVar, Any
+from typing import Iterable, final, Generic, TypeVar
 
 
 class BaseModel(pydantic.BaseModel):
@@ -49,7 +49,7 @@ class BaseModel(pydantic.BaseModel):
 T = TypeVar("T")
 
 
-class BaseType(Generic[T], metaclass=ABCMeta):
+class BaseType(ABC, Generic[T]):
     """Base class for all types"""
 
     @final
@@ -65,7 +65,6 @@ class BaseType(Generic[T], metaclass=ABCMeta):
     @abstractmethod
     def validate(cls, value) -> bool:
         """Validate the type"""
-        ...
 
     @property
     def value(self) -> T:
@@ -107,12 +106,21 @@ class BaseModule(metaclass=ABCMeta):
         self.ignore = contextlib.suppress
         self.results: list[BaseModel] = list()
 
+        self.env: dict[str, str] = {}
+
+        with open(".env") as f:
+            content: str = f.read()
+
+            for line in content.splitlines():
+                kv_pair = line.split("=", 1)
+
+                self.env[kv_pair[0]] = kv_pair[1]
+
         super().__init__()
 
     @abstractmethod
     def execute(self, **kwargs):
         """Run the module"""
-        ...
 
     @final
     def __lt__(self, op: BaseModel):

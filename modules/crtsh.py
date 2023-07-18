@@ -27,5 +27,3 @@ class Module(BaseModule):
 
         for data in response.json():
             self < Row(**data)
-
-        return super().execute(**kwargs)

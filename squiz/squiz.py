@@ -112,15 +112,13 @@ def get_modules(target: BaseType) -> Iterable[BaseModule]:
     )
 
 
-def parse_target(target: str) -> Optional[BaseType]:
+def parse_target(target: str) -> list[BaseType] | None:
     """Parses the target string"""
 
-    if len(a := list(filter(lambda x: x.validate(target), types))) == 1:
-        return a[0](value=target)
+    if a := list(filter(lambda x: x.validate(target), types)):
+        return list(map(lambda tpe: tpe(value=target), a))
 
-    return Logger.fatal(
-        f"Ambiguous target: {target} ({a})" if a else f"Invalid target: {target}"
-    )
+    return None
 
 
 @click.command()
@@ -177,23 +175,24 @@ def run(
     if target is None:
         return Logger.fatal("No target specified")
 
-    target_type = parse_target(target)
+    target_types = parse_target(target)
 
-    if target_type is None:
+    if target_types is None:
         return Logger.fatal(f"Invalid target: {target}")
-
-    modules = get_modules(target_type)
-
-    if not modules:
-        return Logger.fatal(f"No modules found for target: {target}")
 
     Logger.info(f"Running modules...")
 
-    results_lst = [
-        model.dump()
-        for model in execute_many_modules(modules, target=target_type) or []
-    ]
+    for target_type in target_types:
+        modules = get_modules(target_type)
 
-    json.dump(results_lst, open(f"results_{target}.json", "w+"))
+        if not modules:
+            return Logger.fatal(f"No modules found for target: {target}")
+
+        results_lst = [
+            model.dump()
+            for model in execute_many_modules(modules, target=target_type) or []
+        ]
+
+        json.dump(results_lst, open(f"results_{target}.json", "w+"))
 
     Logger.success("Done!")
